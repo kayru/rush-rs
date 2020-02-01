@@ -1,0 +1,3 @@
+[submodule "rush-sys/vendor"]
+	path = rush-sys/vendor
+	url = https://github.com/kayru/librush.git

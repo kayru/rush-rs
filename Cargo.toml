@@ -3,6 +3,9 @@ name = "rush"
 version = "0.1.0"
 authors = ["Yuriy O'Donnell <yuriyo@gmail.com>"]
 
+[dependencies.rush-sys]
+path = "rush-sys/"
+
 [dependencies]
 winit = "0.18"
 
