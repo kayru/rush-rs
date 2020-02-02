@@ -228,6 +228,67 @@ extern "C" {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct rush_color_rgba {
+    pub r: f32,
+    pub g: f32,
+    pub b: f32,
+    pub a: f32,
+}
+#[test]
+fn bindgen_test_layout_rush_color_rgba() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_color_rgba>(),
+        16usize,
+        concat!("Size of: ", stringify!(rush_color_rgba))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_color_rgba>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_color_rgba))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_color_rgba>())).r as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_color_rgba),
+            "::",
+            stringify!(r)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_color_rgba>())).g as *const _ as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_color_rgba),
+            "::",
+            stringify!(g)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_color_rgba>())).b as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_color_rgba),
+            "::",
+            stringify!(b)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_color_rgba>())).a as *const _ as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_color_rgba),
+            "::",
+            stringify!(a)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct rush_gfx_device {
     _unused: [u8; 0],
 }
@@ -241,4 +302,144 @@ pub struct rush_gfx_context {
 }
 extern "C" {
     pub fn rush_platform_get_context() -> *mut rush_gfx_context;
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_texture {
+    pub handle: u16,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_texture() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_texture>(),
+        2usize,
+        concat!("Size of: ", stringify!(rush_gfx_texture))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_texture>(),
+        2usize,
+        concat!("Alignment of ", stringify!(rush_gfx_texture))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_texture>())).handle as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_texture),
+            "::",
+            stringify!(handle)
+        )
+    );
+}
+pub const rush_gfx_pass_flags_RUSH_GFX_PASS_NONE: rush_gfx_pass_flags = 0;
+pub const rush_gfx_pass_flags_RUSH_GFX_PASS_CLEAR_COLOR: rush_gfx_pass_flags = 1;
+pub const rush_gfx_pass_flags_RUSH_GFX_PASS_CLEAR_DEPTH_STENCIL: rush_gfx_pass_flags = 2;
+pub const rush_gfx_pass_flags_RUSH_GFX_PASS_DISCARD_COLOR: rush_gfx_pass_flags = 4;
+pub type rush_gfx_pass_flags = u32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_color_target {
+    pub target: rush_gfx_texture,
+    pub clear_color: rush_color_rgba,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_color_target() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_color_target>(),
+        20usize,
+        concat!("Size of: ", stringify!(rush_gfx_color_target))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_color_target>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_color_target))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_color_target>())).target as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_color_target),
+            "::",
+            stringify!(target)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_color_target>())).clear_color as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_color_target),
+            "::",
+            stringify!(clear_color)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_depth_target {
+    pub target: rush_gfx_texture,
+    pub clear_depth: f32,
+    pub clear_stencil: u8,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_depth_target() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_depth_target>(),
+        12usize,
+        concat!("Size of: ", stringify!(rush_gfx_depth_target))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_depth_target>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_depth_target))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_depth_target>())).target as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_depth_target),
+            "::",
+            stringify!(target)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_depth_target>())).clear_depth as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_depth_target),
+            "::",
+            stringify!(clear_depth)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_depth_target>())).clear_stencil as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_depth_target),
+            "::",
+            stringify!(clear_stencil)
+        )
+    );
+}
+extern "C" {
+    pub fn rush_gfx_begin_pass(
+        ctx: *mut rush_gfx_context,
+        color_count: u32,
+        color: *const rush_gfx_color_target,
+        depth: *const rush_gfx_depth_target,
+        flags: rush_gfx_pass_flags,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_end_pass(ctx: *mut rush_gfx_context);
 }
