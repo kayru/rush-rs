@@ -305,6 +305,174 @@ extern "C" {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_vertex_format {
+    pub handle: u16,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_vertex_format() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_vertex_format>(),
+        2usize,
+        concat!("Size of: ", stringify!(rush_gfx_vertex_format))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_vertex_format>(),
+        2usize,
+        concat!("Alignment of ", stringify!(rush_gfx_vertex_format))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_vertex_format>())).handle as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_vertex_format),
+            "::",
+            stringify!(handle)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_vertex_shader {
+    pub handle: u16,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_vertex_shader() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_vertex_shader>(),
+        2usize,
+        concat!("Size of: ", stringify!(rush_gfx_vertex_shader))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_vertex_shader>(),
+        2usize,
+        concat!("Alignment of ", stringify!(rush_gfx_vertex_shader))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_vertex_shader>())).handle as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_vertex_shader),
+            "::",
+            stringify!(handle)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_pixel_shader {
+    pub handle: u16,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_pixel_shader() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_pixel_shader>(),
+        2usize,
+        concat!("Size of: ", stringify!(rush_gfx_pixel_shader))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_pixel_shader>(),
+        2usize,
+        concat!("Alignment of ", stringify!(rush_gfx_pixel_shader))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_pixel_shader>())).handle as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_pixel_shader),
+            "::",
+            stringify!(handle)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_geometry_shader {
+    pub handle: u16,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_geometry_shader() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_geometry_shader>(),
+        2usize,
+        concat!("Size of: ", stringify!(rush_gfx_geometry_shader))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_geometry_shader>(),
+        2usize,
+        concat!("Alignment of ", stringify!(rush_gfx_geometry_shader))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_geometry_shader>())).handle as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_geometry_shader),
+            "::",
+            stringify!(handle)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_compute_shader {
+    pub handle: u16,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_compute_shader() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_compute_shader>(),
+        2usize,
+        concat!("Size of: ", stringify!(rush_gfx_compute_shader))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_compute_shader>(),
+        2usize,
+        concat!("Alignment of ", stringify!(rush_gfx_compute_shader))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_compute_shader>())).handle as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_compute_shader),
+            "::",
+            stringify!(handle)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_mesh_shader {
+    pub handle: u16,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_mesh_shader() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_mesh_shader>(),
+        2usize,
+        concat!("Size of: ", stringify!(rush_gfx_mesh_shader))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_mesh_shader>(),
+        2usize,
+        concat!("Alignment of ", stringify!(rush_gfx_mesh_shader))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_mesh_shader>())).handle as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_mesh_shader),
+            "::",
+            stringify!(handle)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct rush_gfx_texture {
     pub handle: u16,
 }
@@ -331,11 +499,198 @@ fn bindgen_test_layout_rush_gfx_texture() {
         )
     );
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_buffer {
+    pub handle: u16,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_buffer() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_buffer>(),
+        2usize,
+        concat!("Size of: ", stringify!(rush_gfx_buffer))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_buffer>(),
+        2usize,
+        concat!("Alignment of ", stringify!(rush_gfx_buffer))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_buffer>())).handle as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_buffer),
+            "::",
+            stringify!(handle)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_sampler {
+    pub handle: u16,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_sampler() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_sampler>(),
+        2usize,
+        concat!("Size of: ", stringify!(rush_gfx_sampler))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_sampler>(),
+        2usize,
+        concat!("Alignment of ", stringify!(rush_gfx_sampler))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_sampler>())).handle as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_sampler),
+            "::",
+            stringify!(handle)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_blend_state {
+    pub handle: u16,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_blend_state() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_blend_state>(),
+        2usize,
+        concat!("Size of: ", stringify!(rush_gfx_blend_state))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_blend_state>(),
+        2usize,
+        concat!("Alignment of ", stringify!(rush_gfx_blend_state))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_blend_state>())).handle as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_blend_state),
+            "::",
+            stringify!(handle)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_depth_stencil_state {
+    pub handle: u16,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_depth_stencil_state() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_depth_stencil_state>(),
+        2usize,
+        concat!("Size of: ", stringify!(rush_gfx_depth_stencil_state))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_depth_stencil_state>(),
+        2usize,
+        concat!("Alignment of ", stringify!(rush_gfx_depth_stencil_state))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_depth_stencil_state>())).handle as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_depth_stencil_state),
+            "::",
+            stringify!(handle)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_rasterizer_state {
+    pub handle: u16,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_rasterizer_state() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_rasterizer_state>(),
+        2usize,
+        concat!("Size of: ", stringify!(rush_gfx_rasterizer_state))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_rasterizer_state>(),
+        2usize,
+        concat!("Alignment of ", stringify!(rush_gfx_rasterizer_state))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_rasterizer_state>())).handle as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_rasterizer_state),
+            "::",
+            stringify!(handle)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_technique {
+    pub handle: u16,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_technique() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_technique>(),
+        2usize,
+        concat!("Size of: ", stringify!(rush_gfx_technique))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_technique>(),
+        2usize,
+        concat!("Alignment of ", stringify!(rush_gfx_technique))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_technique>())).handle as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_technique),
+            "::",
+            stringify!(handle)
+        )
+    );
+}
+pub const rush_gfx_primitive_type_RUSH_GFX_PRIMITIVE_POINT_LIST: rush_gfx_primitive_type = 0;
+pub const rush_gfx_primitive_type_RUSH_GFX_PRIMITIVE_LINE_LIST: rush_gfx_primitive_type = 1;
+pub const rush_gfx_primitive_type_RUSH_GFX_PRIMITIVE_LINE_STRIP: rush_gfx_primitive_type = 2;
+pub const rush_gfx_primitive_type_RUSH_GFX_PRIMITIVE_TRIANGLE_LIST: rush_gfx_primitive_type = 3;
+pub const rush_gfx_primitive_type_RUSH_GFX_PRIMITIVE_TRIANGLE_STRIP: rush_gfx_primitive_type = 4;
+pub type rush_gfx_primitive_type = u32;
 pub const rush_gfx_pass_flags_RUSH_GFX_PASS_NONE: rush_gfx_pass_flags = 0;
 pub const rush_gfx_pass_flags_RUSH_GFX_PASS_CLEAR_COLOR: rush_gfx_pass_flags = 1;
 pub const rush_gfx_pass_flags_RUSH_GFX_PASS_CLEAR_DEPTH_STENCIL: rush_gfx_pass_flags = 2;
 pub const rush_gfx_pass_flags_RUSH_GFX_PASS_DISCARD_COLOR: rush_gfx_pass_flags = 4;
 pub type rush_gfx_pass_flags = u32;
+pub const rush_gfx_shader_source_type_RUSH_GFX_SHADER_SOURCE_UNKNOWN: rush_gfx_shader_source_type =
+    0;
+pub const rush_gfx_shader_source_type_RUSH_GFX_SHADER_SOURCE_SPV: rush_gfx_shader_source_type = 1;
+pub const rush_gfx_shader_source_type_RUSH_GFX_SHADER_SOURCE_GLSL: rush_gfx_shader_source_type = 2;
+pub const rush_gfx_shader_source_type_RUSH_GFX_SHADER_SOURCE_HLSL: rush_gfx_shader_source_type = 3;
+pub const rush_gfx_shader_source_type_RUSH_GFX_SHADER_SOURCE_DXBC: rush_gfx_shader_source_type = 4;
+pub const rush_gfx_shader_source_type_RUSH_GFX_SHADER_SOURCE_DXIL: rush_gfx_shader_source_type = 5;
+pub const rush_gfx_shader_source_type_RUSH_GFX_SHADER_SOURCE_MSL: rush_gfx_shader_source_type = 6;
+pub type rush_gfx_shader_source_type = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rush_gfx_color_target {
@@ -431,6 +786,1103 @@ fn bindgen_test_layout_rush_gfx_depth_target() {
         )
     );
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_capability {
+    pub api_name: *const ::std::os::raw::c_char,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_capability() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_capability>(),
+        8usize,
+        concat!("Size of: ", stringify!(rush_gfx_capability))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_capability>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rush_gfx_capability))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_capability>())).api_name as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_capability),
+            "::",
+            stringify!(api_name)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_stats {
+    pub draw_calls: u32,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_stats() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_stats>(),
+        4usize,
+        concat!("Size of: ", stringify!(rush_gfx_stats))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_stats>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_stats))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_stats>())).draw_calls as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_stats),
+            "::",
+            stringify!(draw_calls)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_viewport {
+    pub x: f32,
+    pub y: f32,
+    pub w: f32,
+    pub h: f32,
+    pub depth_min: f32,
+    pub depth_max: f32,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_viewport() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_viewport>(),
+        24usize,
+        concat!("Size of: ", stringify!(rush_gfx_viewport))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_viewport>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_viewport))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_viewport>())).x as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_viewport),
+            "::",
+            stringify!(x)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_viewport>())).y as *const _ as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_viewport),
+            "::",
+            stringify!(y)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_viewport>())).w as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_viewport),
+            "::",
+            stringify!(w)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_viewport>())).h as *const _ as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_viewport),
+            "::",
+            stringify!(h)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_viewport>())).depth_min as *const _ as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_viewport),
+            "::",
+            stringify!(depth_min)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_viewport>())).depth_max as *const _ as usize },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_viewport),
+            "::",
+            stringify!(depth_max)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_rect {
+    pub left: ::std::os::raw::c_int,
+    pub top: ::std::os::raw::c_int,
+    pub right: ::std::os::raw::c_int,
+    pub bottom: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_rect() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_rect>(),
+        16usize,
+        concat!("Size of: ", stringify!(rush_gfx_rect))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_rect>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_rect))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_rect>())).left as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_rect),
+            "::",
+            stringify!(left)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_rect>())).top as *const _ as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_rect),
+            "::",
+            stringify!(top)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_rect>())).right as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_rect),
+            "::",
+            stringify!(right)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_rect>())).bottom as *const _ as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_rect),
+            "::",
+            stringify!(bottom)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_shader_source {
+    pub type_: rush_gfx_shader_source_type,
+    pub entry: *const ::std::os::raw::c_char,
+    pub data: *const ::std::os::raw::c_char,
+    pub size_bytes: u32,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_shader_source() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_shader_source>(),
+        32usize,
+        concat!("Size of: ", stringify!(rush_gfx_shader_source))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_shader_source>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rush_gfx_shader_source))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_shader_source>())).type_ as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_shader_source),
+            "::",
+            stringify!(type_)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_shader_source>())).entry as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_shader_source),
+            "::",
+            stringify!(entry)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_shader_source>())).data as *const _ as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_shader_source),
+            "::",
+            stringify!(data)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_shader_source>())).size_bytes as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_shader_source),
+            "::",
+            stringify!(size_bytes)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_vertex_format_desc {
+    pub todo: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_vertex_format_desc() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_vertex_format_desc>(),
+        4usize,
+        concat!("Size of: ", stringify!(rush_gfx_vertex_format_desc))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_vertex_format_desc>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_vertex_format_desc))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_vertex_format_desc>())).todo as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_vertex_format_desc),
+            "::",
+            stringify!(todo)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_texture_desc {
+    pub todo: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_texture_desc() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_texture_desc>(),
+        4usize,
+        concat!("Size of: ", stringify!(rush_gfx_texture_desc))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_texture_desc>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_texture_desc))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_texture_desc>())).todo as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_texture_desc),
+            "::",
+            stringify!(todo)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_depth_stencil_desc {
+    pub todo: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_depth_stencil_desc() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_depth_stencil_desc>(),
+        4usize,
+        concat!("Size of: ", stringify!(rush_gfx_depth_stencil_desc))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_depth_stencil_desc>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_depth_stencil_desc))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_depth_stencil_desc>())).todo as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_depth_stencil_desc),
+            "::",
+            stringify!(todo)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_rasterizer_desc {
+    pub todo: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_rasterizer_desc() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_rasterizer_desc>(),
+        4usize,
+        concat!("Size of: ", stringify!(rush_gfx_rasterizer_desc))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_rasterizer_desc>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_rasterizer_desc))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_rasterizer_desc>())).todo as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_rasterizer_desc),
+            "::",
+            stringify!(todo)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_buffer_desc {
+    pub todo: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_buffer_desc() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_buffer_desc>(),
+        4usize,
+        concat!("Size of: ", stringify!(rush_gfx_buffer_desc))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_buffer_desc>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_buffer_desc))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_buffer_desc>())).todo as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_buffer_desc),
+            "::",
+            stringify!(todo)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_mapped_buffer {
+    pub todo: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_mapped_buffer() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_mapped_buffer>(),
+        4usize,
+        concat!("Size of: ", stringify!(rush_gfx_mapped_buffer))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_mapped_buffer>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_mapped_buffer))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_mapped_buffer>())).todo as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_mapped_buffer),
+            "::",
+            stringify!(todo)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_spec_constant {
+    pub id: u32,
+    pub offset: u32,
+    pub size: u32,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_spec_constant() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_spec_constant>(),
+        12usize,
+        concat!("Size of: ", stringify!(rush_gfx_spec_constant))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_spec_constant>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_spec_constant))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_spec_constant>())).id as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_spec_constant),
+            "::",
+            stringify!(id)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_spec_constant>())).offset as *const _ as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_spec_constant),
+            "::",
+            stringify!(offset)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_spec_constant>())).size as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_spec_constant),
+            "::",
+            stringify!(size)
+        )
+    );
+}
+pub const rush_gfx_stage_flags_RUSH_GFX_STAGE_FLAG_NONE: rush_gfx_stage_flags = 0;
+pub const rush_gfx_stage_flags_RUSH_GFX_STAGE_FLAG_VERTEX: rush_gfx_stage_flags = 1;
+pub const rush_gfx_stage_flags_RUSH_GFX_STAGE_FLAG_GEOMETRY: rush_gfx_stage_flags = 2;
+pub const rush_gfx_stage_flags_RUSH_GFX_STAGE_FLAG_PIXEL: rush_gfx_stage_flags = 4;
+pub const rush_gfx_stage_flags_RUSH_GFX_STAGE_FLAG_HULL: rush_gfx_stage_flags = 8;
+pub const rush_gfx_stage_flags_RUSH_GFX_STAGE_FLAG_DOMAIN: rush_gfx_stage_flags = 16;
+pub const rush_gfx_stage_flags_RUSH_GFX_STAGE_FLAG_COMPUTE: rush_gfx_stage_flags = 32;
+pub const rush_gfx_stage_flags_RUSH_GFX_STAGE_FLAG_MESH: rush_gfx_stage_flags = 64;
+pub const rush_gfx_stage_flags_RUSH_GFX_STAGE_FLAG_RAYTRACING: rush_gfx_stage_flags = 128;
+pub type rush_gfx_stage_flags = u32;
+pub const rush_gfx_descriptor_set_flags_RUSH_GFX_DESCRIPTOR_SET_FLAG_NONE:
+    rush_gfx_descriptor_set_flags = 0;
+pub const rush_gfx_descriptor_set_flags_RUSH_GFX_DESCRIPTOR_SET_FLAG_TEXTURE_ARRAY:
+    rush_gfx_descriptor_set_flags = 1;
+pub type rush_gfx_descriptor_set_flags = u32;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_descriptor_set_desc {
+    pub constant_buffers: u16,
+    pub samplers: u16,
+    pub textures: u16,
+    pub rw_images: u16,
+    pub rw_buffers: u16,
+    pub rw_typed_buffers: u16,
+    pub acceleration_structures: u16,
+    pub stage_flags: rush_gfx_stage_flags,
+    pub flags: rush_gfx_descriptor_set_flags,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_descriptor_set_desc() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_descriptor_set_desc>(),
+        24usize,
+        concat!("Size of: ", stringify!(rush_gfx_descriptor_set_desc))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_descriptor_set_desc>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_descriptor_set_desc))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_descriptor_set_desc>())).constant_buffers as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_descriptor_set_desc),
+            "::",
+            stringify!(constant_buffers)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_descriptor_set_desc>())).samplers as *const _ as usize
+        },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_descriptor_set_desc),
+            "::",
+            stringify!(samplers)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_descriptor_set_desc>())).textures as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_descriptor_set_desc),
+            "::",
+            stringify!(textures)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_descriptor_set_desc>())).rw_images as *const _ as usize
+        },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_descriptor_set_desc),
+            "::",
+            stringify!(rw_images)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_descriptor_set_desc>())).rw_buffers as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_descriptor_set_desc),
+            "::",
+            stringify!(rw_buffers)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_descriptor_set_desc>())).rw_typed_buffers as *const _
+                as usize
+        },
+        10usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_descriptor_set_desc),
+            "::",
+            stringify!(rw_typed_buffers)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_descriptor_set_desc>())).acceleration_structures
+                as *const _ as usize
+        },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_descriptor_set_desc),
+            "::",
+            stringify!(acceleration_structures)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_descriptor_set_desc>())).stage_flags as *const _
+                as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_descriptor_set_desc),
+            "::",
+            stringify!(stage_flags)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_descriptor_set_desc>())).flags as *const _ as usize
+        },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_descriptor_set_desc),
+            "::",
+            stringify!(flags)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_shader_bindings_desc {
+    pub descriptor_sets: *const rush_gfx_descriptor_set_desc,
+    pub descriptor_set_count: u32,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_shader_bindings_desc() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_shader_bindings_desc>(),
+        16usize,
+        concat!("Size of: ", stringify!(rush_gfx_shader_bindings_desc))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_shader_bindings_desc>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rush_gfx_shader_bindings_desc))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_shader_bindings_desc>())).descriptor_sets as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_shader_bindings_desc),
+            "::",
+            stringify!(descriptor_sets)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_shader_bindings_desc>())).descriptor_set_count
+                as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_shader_bindings_desc),
+            "::",
+            stringify!(descriptor_set_count)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_technique_desc {
+    pub cs: rush_gfx_compute_shader,
+    pub ps: rush_gfx_pixel_shader,
+    pub gs: rush_gfx_geometry_shader,
+    pub vs: rush_gfx_vertex_shader,
+    pub ms: rush_gfx_mesh_shader,
+    pub vf: rush_gfx_vertex_format,
+    pub bindings: rush_gfx_shader_bindings_desc,
+    pub work_group_size: [u16; 3usize],
+    pub spec_constant_count: u32,
+    pub spec_constants: *const rush_gfx_spec_constant,
+    pub spec_data: *const ::std::os::raw::c_void,
+    pub spec_data_size: u32,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_technique_desc() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_technique_desc>(),
+        72usize,
+        concat!("Size of: ", stringify!(rush_gfx_technique_desc))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_technique_desc>(),
+        8usize,
+        concat!("Alignment of ", stringify!(rush_gfx_technique_desc))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_technique_desc>())).cs as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_technique_desc),
+            "::",
+            stringify!(cs)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_technique_desc>())).ps as *const _ as usize },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_technique_desc),
+            "::",
+            stringify!(ps)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_technique_desc>())).gs as *const _ as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_technique_desc),
+            "::",
+            stringify!(gs)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_technique_desc>())).vs as *const _ as usize },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_technique_desc),
+            "::",
+            stringify!(vs)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_technique_desc>())).ms as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_technique_desc),
+            "::",
+            stringify!(ms)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_technique_desc>())).vf as *const _ as usize },
+        10usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_technique_desc),
+            "::",
+            stringify!(vf)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_technique_desc>())).bindings as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_technique_desc),
+            "::",
+            stringify!(bindings)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_technique_desc>())).work_group_size as *const _ as usize
+        },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_technique_desc),
+            "::",
+            stringify!(work_group_size)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_technique_desc>())).spec_constant_count as *const _
+                as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_technique_desc),
+            "::",
+            stringify!(spec_constant_count)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_technique_desc>())).spec_constants as *const _ as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_technique_desc),
+            "::",
+            stringify!(spec_constants)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_technique_desc>())).spec_data as *const _ as usize
+        },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_technique_desc),
+            "::",
+            stringify!(spec_data)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_technique_desc>())).spec_data_size as *const _ as usize
+        },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_technique_desc),
+            "::",
+            stringify!(spec_data_size)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_texture_data {
+    pub todo: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_texture_data() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_texture_data>(),
+        4usize,
+        concat!("Size of: ", stringify!(rush_gfx_texture_data))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_texture_data>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_texture_data))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_texture_data>())).todo as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_texture_data),
+            "::",
+            stringify!(todo)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_blend_state_desc {
+    pub todo: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_blend_state_desc() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_blend_state_desc>(),
+        4usize,
+        concat!("Size of: ", stringify!(rush_gfx_blend_state_desc))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_blend_state_desc>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_blend_state_desc))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_blend_state_desc>())).todo as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_blend_state_desc),
+            "::",
+            stringify!(todo)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct rush_gfx_sampler_desc {
+    pub todo: ::std::os::raw::c_int,
+}
+#[test]
+fn bindgen_test_layout_rush_gfx_sampler_desc() {
+    assert_eq!(
+        ::std::mem::size_of::<rush_gfx_sampler_desc>(),
+        4usize,
+        concat!("Size of: ", stringify!(rush_gfx_sampler_desc))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<rush_gfx_sampler_desc>(),
+        4usize,
+        concat!("Alignment of ", stringify!(rush_gfx_sampler_desc))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_sampler_desc>())).todo as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_sampler_desc),
+            "::",
+            stringify!(todo)
+        )
+    );
+}
+extern "C" {
+    pub fn rush_gfx_set_present_interval(interval: u32);
+}
+extern "C" {
+    pub fn rush_gfx_finish();
+}
+extern "C" {
+    pub fn rush_gfx_get_capability() -> *const rush_gfx_capability;
+}
+extern "C" {
+    pub fn rush_gfx_get_stats() -> *const rush_gfx_stats;
+}
+extern "C" {
+    pub fn rush_gfx_reset_stats();
+}
+extern "C" {
+    pub fn rush_gfx_create_vertex_format(
+        fmt: *const rush_gfx_vertex_format_desc,
+    ) -> rush_gfx_vertex_format;
+}
+extern "C" {
+    pub fn rush_gfx_create_vertex_shader(
+        code: *const rush_gfx_shader_source,
+    ) -> rush_gfx_vertex_shader;
+}
+extern "C" {
+    pub fn rush_gfx_create_pixel_shader(
+        code: *const rush_gfx_shader_source,
+    ) -> rush_gfx_pixel_shader;
+}
+extern "C" {
+    pub fn rush_gfx_create_geometry_sshader(
+        code: *const rush_gfx_shader_source,
+    ) -> rush_gfx_geometry_shader;
+}
+extern "C" {
+    pub fn rush_gfx_create_compute_shader(
+        code: *const rush_gfx_shader_source,
+    ) -> rush_gfx_compute_shader;
+}
+extern "C" {
+    pub fn rush_gfx_create_technique(desc: *const rush_gfx_technique_desc) -> rush_gfx_technique;
+}
+extern "C" {
+    pub fn rush_gfx_create_texture(
+        tex: *const rush_gfx_texture_desc,
+        data: *const rush_gfx_texture_data,
+        count: u32,
+        texels: *const ::std::os::raw::c_void,
+    ) -> rush_gfx_texture;
+}
+extern "C" {
+    pub fn rush_gfx_create_blend_state(
+        desc: *const rush_gfx_blend_state_desc,
+    ) -> rush_gfx_blend_state;
+}
+extern "C" {
+    pub fn rush_gfx_create_sampler_state(desc: *const rush_gfx_sampler_desc) -> rush_gfx_sampler;
+}
+extern "C" {
+    pub fn rush_gfx_create_depth_stencil_state(
+        desc: *const rush_gfx_depth_stencil_desc,
+    ) -> rush_gfx_depth_stencil_state;
+}
+extern "C" {
+    pub fn rush_gfx_create_rasterizer_state(
+        desc: *const rush_gfx_rasterizer_desc,
+    ) -> rush_gfx_rasterizer_state;
+}
+extern "C" {
+    pub fn rush_gfx_create_buffer(
+        desc: *const rush_gfx_buffer_desc,
+        data: *const ::std::os::raw::c_void,
+    ) -> rush_gfx_buffer;
+}
+extern "C" {
+    pub fn rush_gfx_retain_vertex_format(h: rush_gfx_vertex_format);
+}
+extern "C" {
+    pub fn rush_gfx_retain_vertex_shader(h: rush_gfx_vertex_shader);
+}
+extern "C" {
+    pub fn rush_gfx_retain_pixel_shader(h: rush_gfx_pixel_shader);
+}
+extern "C" {
+    pub fn rush_gfx_retain_geometry_shader(h: rush_gfx_geometry_shader);
+}
+extern "C" {
+    pub fn rush_gfx_retain_compute_shader(h: rush_gfx_compute_shader);
+}
+extern "C" {
+    pub fn rush_gfx_retain_technique(h: rush_gfx_technique);
+}
+extern "C" {
+    pub fn rush_gfx_retain_texture(h: rush_gfx_texture);
+}
+extern "C" {
+    pub fn rush_gfx_retain_blend_state(h: rush_gfx_blend_state);
+}
+extern "C" {
+    pub fn rush_gfx_retain_sampler(h: rush_gfx_sampler);
+}
+extern "C" {
+    pub fn rush_gfx_retain_depth_stencil_state(h: rush_gfx_depth_stencil_state);
+}
+extern "C" {
+    pub fn rush_gfx_retain_rasterizer_state(h: rush_gfx_rasterizer_state);
+}
+extern "C" {
+    pub fn rush_gfx_retain_buffer(h: rush_gfx_buffer);
+}
+extern "C" {
+    pub fn rush_gfx_release_vertex_format(h: rush_gfx_vertex_format);
+}
+extern "C" {
+    pub fn rush_gfx_release_vertex_shader(h: rush_gfx_vertex_shader);
+}
+extern "C" {
+    pub fn rush_gfx_release_pixel_shader(h: rush_gfx_pixel_shader);
+}
+extern "C" {
+    pub fn rush_gfx_release_geometry_shader(h: rush_gfx_geometry_shader);
+}
+extern "C" {
+    pub fn rush_gfx_release_compute_shader(h: rush_gfx_compute_shader);
+}
+extern "C" {
+    pub fn rush_gfx_release_technique(h: rush_gfx_technique);
+}
+extern "C" {
+    pub fn rush_gfx_release_texture(h: rush_gfx_texture);
+}
+extern "C" {
+    pub fn rush_gfx_release_blend_state(h: rush_gfx_blend_state);
+}
+extern "C" {
+    pub fn rush_gfx_release_sampler(h: rush_gfx_sampler);
+}
+extern "C" {
+    pub fn rush_gfx_release_depth_stencil_state(h: rush_gfx_depth_stencil_state);
+}
+extern "C" {
+    pub fn rush_gfx_release_rasterizer_state(h: rush_gfx_rasterizer_state);
+}
+extern "C" {
+    pub fn rush_gfx_release_buffer(h: rush_gfx_buffer);
+}
+extern "C" {
+    pub fn rush_gfx_unmap_buffer(lock: *const rush_gfx_mapped_buffer);
+}
+extern "C" {
+    pub fn rush_gfx_update_buffer(
+        ctx: *mut rush_gfx_context,
+        h: rush_gfx_buffer,
+        data: *const ::std::os::raw::c_void,
+        size: u32,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_begin_update_buffer(
+        ctx: *mut rush_gfx_context,
+        h: rush_gfx_buffer,
+        size: u32,
+    ) -> *mut ::std::os::raw::c_void;
+}
+extern "C" {
+    pub fn rush_gfx_end_update_buffer(ctx: *mut rush_gfx_context, h: rush_gfx_buffer);
+}
 extern "C" {
     pub fn rush_gfx_begin_pass(
         ctx: *mut rush_gfx_context,
@@ -444,5 +1896,135 @@ extern "C" {
     pub fn rush_gfx_end_pass(ctx: *mut rush_gfx_context);
 }
 extern "C" {
+    pub fn rush_gfx_set_viewport(ctx: *mut rush_gfx_context, _viewport: *const rush_gfx_viewport);
+}
+extern "C" {
+    pub fn rush_gfx_set_scissor_rect(ctx: *mut rush_gfx_context, rect: *const rush_gfx_rect);
+}
+extern "C" {
+    pub fn rush_gfx_set_technique(ctx: *mut rush_gfx_context, h: rush_gfx_technique);
+}
+extern "C" {
+    pub fn rush_gfx_set_primitive(ctx: *mut rush_gfx_context, type_: rush_gfx_primitive_type);
+}
+extern "C" {
+    pub fn rush_gfx_set_index_stream(ctx: *mut rush_gfx_context, h: rush_gfx_buffer);
+}
+extern "C" {
+    pub fn rush_gfx_set_vertex_stream(ctx: *mut rush_gfx_context, idx: u32, h: rush_gfx_buffer);
+}
+extern "C" {
+    pub fn rush_gfx_set_texture(ctx: *mut rush_gfx_context, idx: u32, h: rush_gfx_texture);
+}
+extern "C" {
+    pub fn rush_gfx_set_sampler(ctx: *mut rush_gfx_context, idx: u32, h: rush_gfx_sampler);
+}
+extern "C" {
+    pub fn rush_gfx_set_storage_image(ctx: *mut rush_gfx_context, idx: u32, h: rush_gfx_texture);
+}
+extern "C" {
+    pub fn rush_gfx_set_storage_buffer(ctx: *mut rush_gfx_context, idx: u32, h: rush_gfx_buffer);
+}
+extern "C" {
+    pub fn rush_gfx_set_blend_state(ctx: *mut rush_gfx_context, h: rush_gfx_blend_state);
+}
+extern "C" {
+    pub fn rush_gfx_set_depth_stencil_state(
+        ctx: *mut rush_gfx_context,
+        h: rush_gfx_depth_stencil_state,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_set_rasterizer_state(ctx: *mut rush_gfx_context, h: rush_gfx_rasterizer_state);
+}
+extern "C" {
+    pub fn rush_gfx_set_constant_buffer(
+        ctx: *mut rush_gfx_context,
+        index: u32,
+        h: rush_gfx_buffer,
+        offset: u32,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_resolve_image(
+        ctx: *mut rush_gfx_context,
+        src: rush_gfx_texture,
+        dst: rush_gfx_texture,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_dispatch(ctx: *mut rush_gfx_context, size_x: u32, size_y: u32, size_z: u32);
+}
+extern "C" {
+    pub fn rush_gfx_dispatch2(
+        ctx: *mut rush_gfx_context,
+        size_x: u32,
+        size_y: u32,
+        size_z: u32,
+        push_constants: *const ::std::os::raw::c_void,
+        push_constants_size: u32,
+    );
+}
+extern "C" {
     pub fn rush_gfx_draw(ctx: *mut rush_gfx_context, first_vertex: u32, vertex_count: u32);
+}
+extern "C" {
+    pub fn rush_gfx_draw_indexed(
+        ctx: *mut rush_gfx_context,
+        index_count: u32,
+        first_index: u32,
+        base_vertex: u32,
+        vertex_count: u32,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_draw_indexed2(
+        ctx: *mut rush_gfx_context,
+        index_count: u32,
+        first_index: u32,
+        base_vertex: u32,
+        vertex_count: u32,
+        push_constants: *const ::std::os::raw::c_void,
+        push_constants_size: u32,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_draw_indexed_instanced(
+        ctx: *mut rush_gfx_context,
+        index_count: u32,
+        first_index: u32,
+        base_vertex: u32,
+        vertex_count: u32,
+        instance_count: u32,
+        instance_offset: u32,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_draw_indexed_indirect(
+        ctx: *mut rush_gfx_context,
+        args_buffer: rush_gfx_buffer,
+        args_buffer_offset: u32,
+        draw_count: u32,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_dispatch_indirect(
+        ctx: *mut rush_gfx_context,
+        args_buffer: rush_gfx_buffer,
+        args_buffer_offset: u32,
+        push_constants: *const ::std::os::raw::c_void,
+        push_constants_size: u32,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_push_marker(ctx: *mut rush_gfx_context, marker: *const ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn rush_gfx_pop_marker(ctx: *mut rush_gfx_context);
+}
+extern "C" {
+    pub fn rush_gfx_begin_timer(ctx: *mut rush_gfx_context, timestamp_id: u32);
+}
+extern "C" {
+    pub fn rush_gfx_end_timer(ctx: *mut rush_gfx_context, timestamp_id: u32);
 }
