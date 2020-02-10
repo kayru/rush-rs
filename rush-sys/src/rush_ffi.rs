@@ -443,3 +443,6 @@ extern "C" {
 extern "C" {
     pub fn rush_gfx_end_pass(ctx: *mut rush_gfx_context);
 }
+extern "C" {
+    pub fn rush_gfx_draw(ctx: *mut rush_gfx_context, first_vertex: u32, vertex_count: u32);
+}
