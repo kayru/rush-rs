@@ -61,6 +61,7 @@ pub fn run(app: Box<dyn App>) -> i32 {
     app_cfg.on_startup = Some(on_startup);
     app_cfg.on_update = Some(on_update);
     app_cfg.on_shutdown = Some(on_shutdown);
+    app_cfg.debug = true;
 
     let err_code = unsafe { rush_sys::rush_platform_main(&app_cfg) };
 

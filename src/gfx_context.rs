@@ -41,13 +41,33 @@ impl GfxContext {
                 color_targets.len() as u32,
                 color_targets.as_ptr(),
                 &depth_target,
-                desc.flags.bits(),
+                desc.flags.bits() as rush_gfx_buffer_flags,
             )
         };
     }
 
     pub fn end_pass(&mut self) {
         unsafe { rush_gfx_end_pass(self.native) };
+    }
+
+    pub fn set_technique(&mut self, technique: rush_gfx_technique) {
+        unsafe { rush_gfx_set_technique(self.native, technique) };
+    }
+
+    pub fn set_index_buffer(&mut self, buffer: &GfxBuffer) {
+        unsafe { rush_gfx_set_index_stream(self.native, buffer.native) };
+    }
+
+    pub fn set_vertex_buffer(&mut self, index: u32, buffer: &GfxBuffer) {
+        unsafe { rush_gfx_set_vertex_stream(self.native, index, buffer.native) };
+    }
+
+    pub fn set_constant_buffer(&mut self, index: u32, buffer: &GfxBuffer, offset: u32) {
+        unsafe { rush_gfx_set_constant_buffer(self.native, index, buffer.native, offset) };
+    }
+
+    pub fn set_primitive_type(&mut self, primitive_type: GfxPrimitiveType) {
+        unsafe { rush_gfx_set_primitive(self.native, primitive_type as rush_gfx_primitive_type) };
     }
 
     pub fn draw(&mut self, first_vertex: u32, vertex_count: u32) {

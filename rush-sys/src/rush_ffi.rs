@@ -135,12 +135,12 @@ pub const RUSH_GFX_PRIMITIVE_LINE_LIST: rush_gfx_primitive_type = 1;
 pub const RUSH_GFX_PRIMITIVE_LINE_STRIP: rush_gfx_primitive_type = 2;
 pub const RUSH_GFX_PRIMITIVE_TRIANGLE_LIST: rush_gfx_primitive_type = 3;
 pub const RUSH_GFX_PRIMITIVE_TRIANGLE_STRIP: rush_gfx_primitive_type = 4;
-pub type rush_gfx_primitive_type = u32;
+pub type rush_gfx_primitive_type = i32;
 pub const RUSH_GFX_PASS_NONE: rush_gfx_pass_flags = 0;
 pub const RUSH_GFX_PASS_CLEAR_COLOR: rush_gfx_pass_flags = 1;
 pub const RUSH_GFX_PASS_CLEAR_DEPTH_STENCIL: rush_gfx_pass_flags = 2;
 pub const RUSH_GFX_PASS_DISCARD_COLOR: rush_gfx_pass_flags = 4;
-pub type rush_gfx_pass_flags = u32;
+pub type rush_gfx_pass_flags = i32;
 pub const RUSH_GFX_SHADER_SOURCE_UNKNOWN: rush_gfx_shader_source_type = 0;
 pub const RUSH_GFX_SHADER_SOURCE_SPV: rush_gfx_shader_source_type = 1;
 pub const RUSH_GFX_SHADER_SOURCE_GLSL: rush_gfx_shader_source_type = 2;
@@ -148,7 +148,7 @@ pub const RUSH_GFX_SHADER_SOURCE_HLSL: rush_gfx_shader_source_type = 3;
 pub const RUSH_GFX_SHADER_SOURCE_DXBC: rush_gfx_shader_source_type = 4;
 pub const RUSH_GFX_SHADER_SOURCE_DXIL: rush_gfx_shader_source_type = 5;
 pub const RUSH_GFX_SHADER_SOURCE_MSL: rush_gfx_shader_source_type = 6;
-pub type rush_gfx_shader_source_type = u32;
+pub type rush_gfx_shader_source_type = i32;
 pub const RUSH_GFX_FORMAT_UNKNOWN: rush_gfx_format = 0;
 pub const RUSH_GFX_FORMAT_D24_UNORM_S8_UINT: rush_gfx_format = 1;
 pub const RUSH_GFX_FORMAT_D24_UNORM_X8: rush_gfx_format = 2;
@@ -181,7 +181,7 @@ pub const RUSH_GFX_FORMAT_BC6H_UFLOAT: rush_gfx_format = 28;
 pub const RUSH_GFX_FORMAT_BC6H_SFLOAT: rush_gfx_format = 29;
 pub const RUSH_GFX_FORMAT_BC7_UNORM: rush_gfx_format = 30;
 pub const RUSH_GFX_FORMAT_BC7_UNORM_SRGB: rush_gfx_format = 31;
-pub type rush_gfx_format = u32;
+pub type rush_gfx_format = i32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rush_gfx_color_target {
@@ -231,10 +231,24 @@ pub struct rush_gfx_shader_source {
     pub data: *const ::std::os::raw::c_void,
     pub size_bytes: u32,
 }
+pub const RUSH_GFX_VERTEX_SEMANTIC_UNUSED: rush_gfx_vertex_semantic = 0;
+pub const RUSH_GFX_VERTEX_SEMANTIC_POSITION: rush_gfx_vertex_semantic = 1;
+pub const RUSH_GFX_VERTEX_SEMANTIC_TEXCOORD: rush_gfx_vertex_semantic = 2;
+pub const RUSH_GFX_VERTEX_SEMANTIC_COLOR: rush_gfx_vertex_semantic = 3;
+pub const RUSH_GFX_VERTEX_SEMANTIC_NORMAL: rush_gfx_vertex_semantic = 4;
+pub const RUSH_GFX_VERTEX_SEMANTIC_TANGENTU: rush_gfx_vertex_semantic = 5;
+pub const RUSH_GFX_VERTEX_SEMANTIC_TANGENTV: rush_gfx_vertex_semantic = 6;
+pub const RUSH_GFX_VERTEX_SEMANTIC_INSTANCEDATA: rush_gfx_vertex_semantic = 7;
+pub const RUSH_GFX_VERTEX_SEMANTIC_BONEINDEX: rush_gfx_vertex_semantic = 8;
+pub const RUSH_GFX_VERTEX_SEMANTIC_BONEWEIGHT: rush_gfx_vertex_semantic = 9;
+pub type rush_gfx_vertex_semantic = i32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct rush_gfx_vertex_format_desc {
-    pub todo: ::std::os::raw::c_int,
+pub struct rush_gfx_vertex_element {
+    pub semantic: rush_gfx_vertex_semantic,
+    pub index: u32,
+    pub format: rush_gfx_format,
+    pub stream: u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -259,8 +273,8 @@ pub const RUSH_GFX_BUFFER_FLAG_STORAGE: rush_gfx_buffer_flags = 8;
 pub const RUSH_GFX_BUFFER_FLAG_TEXEL: rush_gfx_buffer_flags = 16;
 pub const RUSH_GFX_BUFFER_FLAG_INDIRECT_ARGS: rush_gfx_buffer_flags = 32;
 pub const RUSH_GFX_BUFFER_FLAG_RAYTRACING: rush_gfx_buffer_flags = 64;
-pub const RUSH_GFX_BUFFER_FLAG_TRANSIENT: rush_gfx_buffer_flags = 2147483648;
-pub type rush_gfx_buffer_flags = u32;
+pub const RUSH_GFX_BUFFER_FLAG_TRANSIENT: rush_gfx_buffer_flags = -2147483648;
+pub type rush_gfx_buffer_flags = i32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rush_gfx_buffer_desc {
@@ -291,10 +305,10 @@ pub const RUSH_GFX_STAGE_FLAG_DOMAIN: rush_gfx_stage_flags = 16;
 pub const RUSH_GFX_STAGE_FLAG_COMPUTE: rush_gfx_stage_flags = 32;
 pub const RUSH_GFX_STAGE_FLAG_MESH: rush_gfx_stage_flags = 64;
 pub const RUSH_GFX_STAGE_FLAG_RAYTRACING: rush_gfx_stage_flags = 128;
-pub type rush_gfx_stage_flags = u32;
+pub type rush_gfx_stage_flags = i32;
 pub const RUSH_GFX_DESCRIPTOR_SET_FLAG_NONE: rush_gfx_descriptor_set_flags = 0;
 pub const RUSH_GFX_DESCRIPTOR_SET_FLAG_TEXTURE_ARRAY: rush_gfx_descriptor_set_flags = 1;
-pub type rush_gfx_descriptor_set_flags = u32;
+pub type rush_gfx_descriptor_set_flags = i32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rush_gfx_descriptor_set_desc {
@@ -313,6 +327,7 @@ pub struct rush_gfx_descriptor_set_desc {
 pub struct rush_gfx_shader_bindings_desc {
     pub descriptor_sets: *const rush_gfx_descriptor_set_desc,
     pub descriptor_set_count: u32,
+    pub use_default_descriptor_set: bool,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -362,7 +377,8 @@ extern "C" {
 }
 extern "C" {
     pub fn rush_gfx_create_vertex_format(
-        fmt: *const rush_gfx_vertex_format_desc,
+        elements: *const rush_gfx_vertex_element,
+        count: u32,
     ) -> rush_gfx_vertex_format;
 }
 extern "C" {
@@ -570,7 +586,7 @@ extern "C" {
 extern "C" {
     pub fn rush_gfx_set_constant_buffer(
         ctx: *mut rush_gfx_context,
-        index: u32,
+        idx: u32,
         h: rush_gfx_buffer,
         offset: u32,
     );
@@ -662,7 +678,7 @@ pub const RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_PLAIN_PS: rush_gfx_embedded_shader_
 pub const RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_TEXTURED_PS: rush_gfx_embedded_shader_type = 1;
 pub const RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_2D_VS: rush_gfx_embedded_shader_type = 2;
 pub const RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_3D_VS: rush_gfx_embedded_shader_type = 3;
-pub type rush_gfx_embedded_shader_type = u32;
+pub type rush_gfx_embedded_shader_type = i32;
 extern "C" {
     pub fn rush_gfx_get_embedded_shader(
         type_: rush_gfx_embedded_shader_type,

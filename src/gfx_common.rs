@@ -4,6 +4,15 @@ extern crate rush_sys;
 use rush_sys::*;
 
 #[derive(Copy, Clone)]
+pub enum GfxPrimitiveType {
+    PointList = RUSH_GFX_PRIMITIVE_POINT_LIST as isize,
+	LineList = RUSH_GFX_PRIMITIVE_LINE_LIST as isize,
+	LineStrip = RUSH_GFX_PRIMITIVE_LINE_STRIP as isize,
+	TriangleList = RUSH_GFX_PRIMITIVE_TRIANGLE_LIST as isize,
+	TriangleStrip = RUSH_GFX_PRIMITIVE_TRIANGLE_STRIP as isize,
+}
+
+#[derive(Copy, Clone)]
 pub enum GfxFormat {
     UNKNOWN = RUSH_GFX_FORMAT_UNKNOWN as isize,
     D24_UNORM_S8_UINT = RUSH_GFX_FORMAT_D24_UNORM_S8_UINT as isize,
@@ -115,6 +124,15 @@ pub struct ColorRGBA {
     pub a: f32,
 }
 
+impl ColorRGBA {
+    pub fn black() -> Self {
+        ColorRGBA::black_alpha(0.0)
+    }
+    pub fn black_alpha(a: f32) -> Self {
+        ColorRGBA{r: 0.0, g: 0.0, b: 0.0, a:a}
+    }
+}
+
 impl Default for ColorRGBA {
     fn default() -> Self {
         ColorRGBA {
@@ -128,10 +146,10 @@ impl Default for ColorRGBA {
 
 bitflags! {
     pub struct GfxPassFlags: u32 {
-        const NONE = RUSH_GFX_PASS_NONE;
-        const CLEAR_COLOR = RUSH_GFX_PASS_CLEAR_COLOR;
-        const CLEAR_DEPTH_STENCIL = RUSH_GFX_PASS_CLEAR_DEPTH_STENCIL;
-        const DISCARD_COLOR = RUSH_GFX_PASS_DISCARD_COLOR;
+        const NONE = RUSH_GFX_PASS_NONE as u32;
+        const CLEAR_COLOR = RUSH_GFX_PASS_CLEAR_COLOR as u32;
+        const CLEAR_DEPTH_STENCIL = RUSH_GFX_PASS_CLEAR_DEPTH_STENCIL as u32;
+        const DISCARD_COLOR = RUSH_GFX_PASS_DISCARD_COLOR as u32;
         const CLEAR_COLOR_DEPTH_STENCIL = Self::CLEAR_COLOR.bits | Self::CLEAR_DEPTH_STENCIL.bits;
     }
 }
@@ -175,15 +193,15 @@ impl Default for GfxPassDesc {
 
 bitflags! {
     pub struct GfxBufferFlags: u32 {
-        const NONE = RUSH_GFX_BUFFER_FLAG_NONE;
-        const VERTEX = RUSH_GFX_BUFFER_FLAG_VERTEX;
-        const INDEX = RUSH_GFX_BUFFER_FLAG_INDEX;
-        const CONSTANT = RUSH_GFX_BUFFER_FLAG_CONSTANT;
-        const STORAGE = RUSH_GFX_BUFFER_FLAG_STORAGE;
-        const TEXEL = RUSH_GFX_BUFFER_FLAG_TEXEL;
-        const INDIRECT_ARGS = RUSH_GFX_BUFFER_FLAG_INDIRECT_ARGS;
-        const RAYTRACING = RUSH_GFX_BUFFER_FLAG_RAYTRACING;
-        const TRANSIENT = RUSH_GFX_BUFFER_FLAG_TRANSIENT;
+        const NONE = RUSH_GFX_BUFFER_FLAG_NONE as u32;
+        const VERTEX = RUSH_GFX_BUFFER_FLAG_VERTEX as u32;
+        const INDEX = RUSH_GFX_BUFFER_FLAG_INDEX as u32;
+        const CONSTANT = RUSH_GFX_BUFFER_FLAG_CONSTANT as u32;
+        const STORAGE = RUSH_GFX_BUFFER_FLAG_STORAGE as u32;
+        const TEXEL = RUSH_GFX_BUFFER_FLAG_TEXEL as u32;
+        const INDIRECT_ARGS = RUSH_GFX_BUFFER_FLAG_INDIRECT_ARGS as u32;
+        const RAYTRACING = RUSH_GFX_BUFFER_FLAG_RAYTRACING as u32;
+        const TRANSIENT = RUSH_GFX_BUFFER_FLAG_TRANSIENT as u32;
     }
 }
 
@@ -204,25 +222,13 @@ pub struct GfxBufferDesc {
 impl From<&GfxBufferDesc> for rush_gfx_buffer_desc {
     fn from(desc: &GfxBufferDesc) -> Self {
         rush_gfx_buffer_desc {
-            flags: desc.flags.bits(),
+            flags: desc.flags.bits() as rush_gfx_buffer_flags,
             format: desc.format as rush_gfx_format,
             stride: desc.stride,
             count: desc.count,
             host_visible: desc.host_visible,
         }
     }
-}
-
-pub struct GfxDescriptorSetDesc {
-    pub constant_buffers: u16,
-    pub samplers: u16,
-    pub textures: u16,
-    pub rw_images: u16,
-    pub rw_buffers: u16,
-    pub rw_typed_buffers: u16,
-    pub acceleration_structures: u16,
-    pub stage_flags: rush_gfx_stage_flags,
-    pub flags: rush_gfx_descriptor_set_flags,
 }
 
 pub struct GfxTechniqueDesc {
