@@ -6,8 +6,6 @@ use rush::*;
 extern crate rush_sys;
 use rush_sys::*;
 
-use std::mem::size_of;
-
 struct HelloTriangleApp {
     vb: GfxBuffer,
 }
@@ -31,6 +29,7 @@ impl HelloTriangleApp {
                 RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_PLAIN_PS,
             )
         });
+
         let vb_data: Vec<Vertex> = vec![
             Vertex {
                 pos: [0.0, 0.0, 0.0],
@@ -51,7 +50,7 @@ impl HelloTriangleApp {
         let vb_desc = GfxBufferDesc {
             flags: GfxBufferFlags::VERTEX,
             format: GfxFormat::UNKNOWN,
-            stride: size_of::<Vertex>() as u32,
+            stride: std::mem::size_of::<Vertex>() as u32,
             count: vb_data.len() as u32,
             host_visible: false,
         };

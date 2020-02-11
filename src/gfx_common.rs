@@ -212,3 +212,51 @@ impl From<&GfxBufferDesc> for rush_gfx_buffer_desc {
         }
     }
 }
+
+pub struct GfxDescriptorSetDesc {
+    pub constant_buffers: u16,
+    pub samplers: u16,
+    pub textures: u16,
+    pub rw_images: u16,
+    pub rw_buffers: u16,
+    pub rw_typed_buffers: u16,
+    pub acceleration_structures: u16,
+    pub stage_flags: rush_gfx_stage_flags,
+    pub flags: rush_gfx_descriptor_set_flags,
+}
+
+pub struct GfxTechniqueDesc {
+    //pub cs: rush_gfx_compute_shader,
+    pub ps: GfxPixelShader,
+    //pub gs: rush_gfx_geometry_shader,
+    pub vs: GfxVertexShader,
+    //pub ms: rush_gfx_mesh_shader,
+    //pub vf: rush_gfx_vertex_format,
+    //pub bindings: rush_gfx_shader_bindings_desc,
+    pub work_group_size: [u16; 3usize],
+    //pub spec_constant_count: u32,
+    //pub spec_constants: *const rush_gfx_spec_constant,
+    //pub spec_data: *const ::std::os::raw::c_void,
+    //pub spec_data_size: u32,
+}
+
+/*
+impl From<&GfxTechniqueDesc> for rush_gfx_technique_desc {
+    fn from(desc: &GfxTechniqueDesc) -> Self {
+        rush_gfx_technique_desc {
+            cs: rush_gfx_compute_shader{handle: 0},
+            ps: desc.ps.native,
+            gs: rush_gfx_geometry_shader{handle: 0},
+            vs: desc.vs.native,
+            ms: rush_gfx_mesh_shader{handle: 0},
+            vf: rush_gfx_vertex_format{handle: 0},
+            //bindings: rush_gfx_shader_bindings_desc,
+            work_group_size: desc.work_group_size,
+            spec_constant_count: 0,
+            spec_constants: std::ptr::null() as *const rush_gfx_spec_constant,
+            spec_data: std::ptr::null() as *const ::std::os::raw::c_void,
+            spec_data_size: 0, 
+        }
+    }
+}
+*/
