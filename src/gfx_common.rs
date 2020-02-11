@@ -39,6 +39,34 @@ pub enum GfxFormat {
     BC7_UNORM_SRGB = rush_gfx_format_RUSH_GFX_FORMAT_BC7_UNORM_SRGB as isize,
 }
 
+pub struct GfxVertexShader {
+    pub native: rush_gfx_vertex_shader,
+}
+
+impl GfxVertexShader {
+    pub fn new_with_source(source: &rush_gfx_shader_source) -> Self {
+        GfxVertexShader {
+            native: unsafe {
+                rush_gfx_create_vertex_shader(source)
+            }
+        }
+    }
+}
+
+pub struct GfxPixelShader {
+    pub native: rush_gfx_pixel_shader,
+}
+
+impl GfxPixelShader {
+    pub fn new_with_source(source: &rush_gfx_shader_source) -> Self {
+        GfxPixelShader {
+            native: unsafe {
+                rush_gfx_create_pixel_shader(source)
+            }
+        }
+    }
+}
+
 pub struct GfxTexture {
     pub native: rush_gfx_texture,
 }

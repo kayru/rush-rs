@@ -1024,7 +1024,7 @@ fn bindgen_test_layout_rush_gfx_rect() {
 pub struct rush_gfx_shader_source {
     pub type_: rush_gfx_shader_source_type,
     pub entry: *const ::std::os::raw::c_char,
-    pub data: *const ::std::os::raw::c_char,
+    pub data: *const ::std::os::raw::c_void,
     pub size_bytes: u32,
 }
 #[test]
@@ -2116,4 +2116,18 @@ extern "C" {
 }
 extern "C" {
     pub fn rush_gfx_end_timer(ctx: *mut rush_gfx_context, timestamp_id: u32);
+}
+pub const rush_gfx_embedded_shader_type_RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_PLAIN_PS:
+    rush_gfx_embedded_shader_type = 0;
+pub const rush_gfx_embedded_shader_type_RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_TEXTURED_PS:
+    rush_gfx_embedded_shader_type = 1;
+pub const rush_gfx_embedded_shader_type_RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_2D_VS:
+    rush_gfx_embedded_shader_type = 2;
+pub const rush_gfx_embedded_shader_type_RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_3D_VS:
+    rush_gfx_embedded_shader_type = 3;
+pub type rush_gfx_embedded_shader_type = u32;
+extern "C" {
+    pub fn rush_gfx_get_embedded_shader(
+        type_: rush_gfx_embedded_shader_type,
+    ) -> rush_gfx_shader_source;
 }

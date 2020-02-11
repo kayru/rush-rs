@@ -12,6 +12,8 @@ fn main() {
     .include("vendor/Rush")
     .file("vendor/Rush/GfxBitmapFont.cpp")
     .file("vendor/Rush/GfxCommon.cpp")
+    .file("vendor/Rush/GfxEmbeddedShaders.cpp")
+    .file("vendor/Rush/GfxEmbeddedShadersMSL.cpp")
     .file("vendor/Rush/GfxPrimitiveBatch.cpp")
     .file("vendor/Rush/MathTypes.cpp")
     //.file("vendor/Rush/Platform.cpp")
@@ -29,7 +31,6 @@ fn main() {
         .define("RUSH_RENDER_API", "RUSH_RENDER_API_MTL")
         .file("vendor/Rush/GfxDeviceMtl.mm")
         .file("vendor/Rush/PlatformMac.mm")
-        .file("vendor/Rush/GfxEmbeddedShadersMSL.cpp")
         .file("vendor/Rush/WindowMac.mm")
         .flag("-ObjC++");
         println!("cargo:rustc-link-lib=framework=Metal");
@@ -40,7 +41,6 @@ fn main() {
         .include("vendor/External/Vulkan-Headers")
         .include("vendor/External/Volk")
         .file("vendor/External/Volk/volk.c")
-        .file("vendor/Rush/GfxEmbeddedShaders.cpp")
         .file("vendor/Rush/GfxDeviceVK.cpp");
 
         if target.contains("windows") {
