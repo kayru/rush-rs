@@ -23,12 +23,12 @@ impl HelloTriangleApp {
     fn new(_platform: &mut Platform) -> HelloTriangleApp {
         let _vs = GfxVertexShader::new_with_source(unsafe {
             &rush_gfx_get_embedded_shader(
-                rush_gfx_embedded_shader_type_RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_2D_VS,
+                RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_2D_VS,
             )
         });
         let _ps = GfxPixelShader::new_with_source(unsafe {
             &rush_gfx_get_embedded_shader(
-                rush_gfx_embedded_shader_type_RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_PLAIN_PS,
+                RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_PLAIN_PS,
             )
         });
         let vb_data: Vec<Vertex> = vec![

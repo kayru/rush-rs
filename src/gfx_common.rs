@@ -5,38 +5,38 @@ use rush_sys::*;
 
 #[derive(Copy, Clone)]
 pub enum GfxFormat {
-    UNKNOWN = rush_gfx_format_RUSH_GFX_FORMAT_UNKNOWN as isize,
-    D24_UNORM_S8_UINT = rush_gfx_format_RUSH_GFX_FORMAT_D24_UNORM_S8_UINT as isize,
-    D24_UNORM_X8 = rush_gfx_format_RUSH_GFX_FORMAT_D24_UNORM_X8 as isize,
-    D32_FLOAT = rush_gfx_format_RUSH_GFX_FORMAT_D32_FLOAT as isize,
-    D32_FLOAT_S8_UINT = rush_gfx_format_RUSH_GFX_FORMAT_D32_FLOAT_S8_UINT as isize,
-    R8_UNORM = rush_gfx_format_RUSH_GFX_FORMAT_R8_UNORM as isize,
-    R16_FLOAT = rush_gfx_format_RUSH_GFX_FORMAT_R16_FLOAT as isize,
-    R16_UINT = rush_gfx_format_RUSH_GFX_FORMAT_R16_UINT as isize,
-    R32_FLOAT = rush_gfx_format_RUSH_GFX_FORMAT_R32_FLOAT as isize,
-    R32_UINT = rush_gfx_format_RUSH_GFX_FORMAT_R32_UINT as isize,
-    RG8_UNORM = rush_gfx_format_RUSH_GFX_FORMAT_RG8_UNORM as isize,
-    RG16_FLOAT = rush_gfx_format_RUSH_GFX_FORMAT_RG16_FLOAT as isize,
-    RG32_FLOAT = rush_gfx_format_RUSH_GFX_FORMAT_RG32_FLOAT as isize,
-    RGB32_FLOAT = rush_gfx_format_RUSH_GFX_FORMAT_RGB32_FLOAT as isize,
-    RGB8_UNORM = rush_gfx_format_RUSH_GFX_FORMAT_RGB8_UNORM as isize,
-    RGBA16_FLOAT = rush_gfx_format_RUSH_GFX_FORMAT_RGBA16_FLOAT as isize,
-    RGBA16_UNORM = rush_gfx_format_RUSH_GFX_FORMAT_RGBA16_UNORM as isize,
-    RGBA32_FLOAT = rush_gfx_format_RUSH_GFX_FORMAT_RGBA32_FLOAT as isize,
-    RGBA8_UNORM = rush_gfx_format_RUSH_GFX_FORMAT_RGBA8_UNORM as isize,
-    RGBA8_SRGB = rush_gfx_format_RUSH_GFX_FORMAT_RGBA8_SRGB as isize,
-    BGRA8_UNORM = rush_gfx_format_RUSH_GFX_FORMAT_BGRA8_UNORM as isize,
-    BGRA8_SRGB = rush_gfx_format_RUSH_GFX_FORMAT_BGRA8_SRGB as isize,
-    BC1_UNORM = rush_gfx_format_RUSH_GFX_FORMAT_BC1_UNORM as isize,
-    BC1_UNORM_SRGB = rush_gfx_format_RUSH_GFX_FORMAT_BC1_UNORM_SRGB as isize,
-    BC3_UNORM = rush_gfx_format_RUSH_GFX_FORMAT_BC3_UNORM as isize,
-    BC3_UNORM_SRGB = rush_gfx_format_RUSH_GFX_FORMAT_BC3_UNORM_SRGB as isize,
-    BC4_UNORM = rush_gfx_format_RUSH_GFX_FORMAT_BC4_UNORM as isize,
-    BC5_UNORM = rush_gfx_format_RUSH_GFX_FORMAT_BC5_UNORM as isize,
-    BC6H_UFLOAT = rush_gfx_format_RUSH_GFX_FORMAT_BC6H_UFLOAT as isize,
-    BC6H_SFLOAT = rush_gfx_format_RUSH_GFX_FORMAT_BC6H_SFLOAT as isize,
-    BC7_UNORM = rush_gfx_format_RUSH_GFX_FORMAT_BC7_UNORM as isize,
-    BC7_UNORM_SRGB = rush_gfx_format_RUSH_GFX_FORMAT_BC7_UNORM_SRGB as isize,
+    UNKNOWN = RUSH_GFX_FORMAT_UNKNOWN as isize,
+    D24_UNORM_S8_UINT = RUSH_GFX_FORMAT_D24_UNORM_S8_UINT as isize,
+    D24_UNORM_X8 = RUSH_GFX_FORMAT_D24_UNORM_X8 as isize,
+    D32_FLOAT = RUSH_GFX_FORMAT_D32_FLOAT as isize,
+    D32_FLOAT_S8_UINT = RUSH_GFX_FORMAT_D32_FLOAT_S8_UINT as isize,
+    R8_UNORM = RUSH_GFX_FORMAT_R8_UNORM as isize,
+    R16_FLOAT = RUSH_GFX_FORMAT_R16_FLOAT as isize,
+    R16_UINT = RUSH_GFX_FORMAT_R16_UINT as isize,
+    R32_FLOAT = RUSH_GFX_FORMAT_R32_FLOAT as isize,
+    R32_UINT = RUSH_GFX_FORMAT_R32_UINT as isize,
+    RG8_UNORM = RUSH_GFX_FORMAT_RG8_UNORM as isize,
+    RG16_FLOAT = RUSH_GFX_FORMAT_RG16_FLOAT as isize,
+    RG32_FLOAT = RUSH_GFX_FORMAT_RG32_FLOAT as isize,
+    RGB32_FLOAT = RUSH_GFX_FORMAT_RGB32_FLOAT as isize,
+    RGB8_UNORM = RUSH_GFX_FORMAT_RGB8_UNORM as isize,
+    RGBA16_FLOAT = RUSH_GFX_FORMAT_RGBA16_FLOAT as isize,
+    RGBA16_UNORM = RUSH_GFX_FORMAT_RGBA16_UNORM as isize,
+    RGBA32_FLOAT = RUSH_GFX_FORMAT_RGBA32_FLOAT as isize,
+    RGBA8_UNORM = RUSH_GFX_FORMAT_RGBA8_UNORM as isize,
+    RGBA8_SRGB = RUSH_GFX_FORMAT_RGBA8_SRGB as isize,
+    BGRA8_UNORM = RUSH_GFX_FORMAT_BGRA8_UNORM as isize,
+    BGRA8_SRGB = RUSH_GFX_FORMAT_BGRA8_SRGB as isize,
+    BC1_UNORM = RUSH_GFX_FORMAT_BC1_UNORM as isize,
+    BC1_UNORM_SRGB = RUSH_GFX_FORMAT_BC1_UNORM_SRGB as isize,
+    BC3_UNORM = RUSH_GFX_FORMAT_BC3_UNORM as isize,
+    BC3_UNORM_SRGB = RUSH_GFX_FORMAT_BC3_UNORM_SRGB as isize,
+    BC4_UNORM = RUSH_GFX_FORMAT_BC4_UNORM as isize,
+    BC5_UNORM = RUSH_GFX_FORMAT_BC5_UNORM as isize,
+    BC6H_UFLOAT = RUSH_GFX_FORMAT_BC6H_UFLOAT as isize,
+    BC6H_SFLOAT = RUSH_GFX_FORMAT_BC6H_SFLOAT as isize,
+    BC7_UNORM = RUSH_GFX_FORMAT_BC7_UNORM as isize,
+    BC7_UNORM_SRGB = RUSH_GFX_FORMAT_BC7_UNORM_SRGB as isize,
 }
 
 pub struct GfxVertexShader {
@@ -128,10 +128,10 @@ impl Default for ColorRGBA {
 
 bitflags! {
     pub struct GfxPassFlags: u32 {
-        const NONE = rush_gfx_pass_flags_RUSH_GFX_PASS_NONE;
-        const CLEAR_COLOR = rush_gfx_pass_flags_RUSH_GFX_PASS_CLEAR_COLOR;
-        const CLEAR_DEPTH_STENCIL = rush_gfx_pass_flags_RUSH_GFX_PASS_CLEAR_DEPTH_STENCIL;
-        const DISCARD_COLOR = rush_gfx_pass_flags_RUSH_GFX_PASS_DISCARD_COLOR;
+        const NONE = RUSH_GFX_PASS_NONE;
+        const CLEAR_COLOR = RUSH_GFX_PASS_CLEAR_COLOR;
+        const CLEAR_DEPTH_STENCIL = RUSH_GFX_PASS_CLEAR_DEPTH_STENCIL;
+        const DISCARD_COLOR = RUSH_GFX_PASS_DISCARD_COLOR;
         const CLEAR_COLOR_DEPTH_STENCIL = Self::CLEAR_COLOR.bits | Self::CLEAR_DEPTH_STENCIL.bits;
     }
 }
@@ -175,15 +175,15 @@ impl Default for GfxPassDesc {
 
 bitflags! {
     pub struct GfxBufferFlags: u32 {
-        const NONE = rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_NONE;
-        const VERTEX = rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_VERTEX;
-        const INDEX = rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_INDEX;
-        const CONSTANT = rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_CONSTANT;
-        const STORAGE = rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_STORAGE;
-        const TEXEL = rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_TEXEL;
-        const INDIRECT_ARGS = rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_INDIRECT_ARGS;
-        const RAYTRACING = rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_RAYTRACING;
-        const TRANSIENT = rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_TRANSIENT;
+        const NONE = RUSH_GFX_BUFFER_FLAG_NONE;
+        const VERTEX = RUSH_GFX_BUFFER_FLAG_VERTEX;
+        const INDEX = RUSH_GFX_BUFFER_FLAG_INDEX;
+        const CONSTANT = RUSH_GFX_BUFFER_FLAG_CONSTANT;
+        const STORAGE = RUSH_GFX_BUFFER_FLAG_STORAGE;
+        const TEXEL = RUSH_GFX_BUFFER_FLAG_TEXEL;
+        const INDIRECT_ARGS = RUSH_GFX_BUFFER_FLAG_INDIRECT_ARGS;
+        const RAYTRACING = RUSH_GFX_BUFFER_FLAG_RAYTRACING;
+        const TRANSIENT = RUSH_GFX_BUFFER_FLAG_TRANSIENT;
     }
 }
 
