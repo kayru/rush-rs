@@ -52,6 +52,12 @@ pub struct GfxVertexShader {
     pub native: rush_gfx_vertex_shader,
 }
 
+impl Drop for GfxVertexShader {
+    fn drop(&mut self) {
+        unsafe { rush_gfx_release_vertex_shader(self.native) };
+    }
+}
+
 impl GfxVertexShader {
     pub fn new_with_source(source: &rush_gfx_shader_source) -> Self {
         GfxVertexShader {
@@ -64,6 +70,12 @@ impl GfxVertexShader {
 
 pub struct GfxPixelShader {
     pub native: rush_gfx_pixel_shader,
+}
+
+impl Drop for GfxPixelShader {
+    fn drop(&mut self) {
+        unsafe { rush_gfx_release_pixel_shader(self.native) };
+    }
 }
 
 impl GfxPixelShader {
@@ -90,6 +102,12 @@ impl Default for GfxTexture {
 
 pub struct GfxBuffer {
     pub native: rush_gfx_buffer,
+}
+
+impl Drop for GfxBuffer {
+    fn drop(&mut self) {
+        unsafe { rush_gfx_release_buffer(self.native) };
+    }
 }
 
 impl Default for GfxBuffer {
@@ -228,6 +246,16 @@ impl From<&GfxBufferDesc> for rush_gfx_buffer_desc {
             count: desc.count,
             host_visible: desc.host_visible,
         }
+    }
+}
+
+pub struct GfxTechnique {
+    pub native: rush_gfx_technique,
+}
+
+impl Drop for GfxTechnique {
+    fn drop(&mut self) {
+        unsafe { rush_gfx_release_technique(self.native) };
     }
 }
 

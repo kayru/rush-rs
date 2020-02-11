@@ -9,7 +9,7 @@ use rush_sys::*;
 struct HelloTriangleApp {
     vb: GfxBuffer,
     cb: GfxBuffer,
-    technique: rush_gfx_technique,
+    technique: GfxTechnique,
 }
 
 #[repr(C)]
@@ -131,7 +131,7 @@ impl HelloTriangleApp {
                 count: 1,
                 host_visible: false,
             }, cb_data.as_ptr()),
-            technique: unsafe { rush_gfx_create_technique(&technique_desc) },
+            technique: GfxTechnique{ native: unsafe { rush_gfx_create_technique(&technique_desc) } },
         }
     }
     fn on_update(&mut self, platform: &mut Platform) {
@@ -147,7 +147,7 @@ impl HelloTriangleApp {
         };
 
         ctx.begin_pass(&pass_desc);
-        ctx.set_technique(self.technique);
+        ctx.set_technique(self.technique.native);
         ctx.set_vertex_buffer(0, &self.vb);
         ctx.set_constant_buffer(0, &self.cb, 0);
         ctx.set_primitive_type(GfxPrimitiveType::TriangleList);
