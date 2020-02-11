@@ -26,6 +26,7 @@ fn main() {
 
     if target.contains("darwin") {
         build
+        .define("RUSH_RENDER_API", "RUSH_RENDER_API_MTL")
         .file("vendor/Rush/GfxDeviceMtl.mm")
         .file("vendor/Rush/PlatformMac.mm")
         .file("vendor/Rush/GfxEmbeddedShadersMSL.cpp")
@@ -40,8 +41,19 @@ fn main() {
         .include("vendor/External/Volk")
         .file("vendor/External/Volk/volk.c")
         .file("vendor/Rush/GfxEmbeddedShaders.cpp")
-        .file("vendor/Rush/GfxDeviceVK.cpp")
-        ;
+        .file("vendor/Rush/GfxDeviceVK.cpp");
+
+        if target.contains("windows") {
+            build
+            .define("RUSH_RENDER_API", "RUSH_RENDER_API_VK")
+            .define("RUSH_PLATFORM_WINDOWS", "1")
+            .define("NOMINMAX", "1")
+            .define("WIN32_LEAN_AND_MEAN", "1")
+            .define("VK_USE_PLATFORM_WIN32_KHR", "1")
+            .file("vendor/Rush/PlatformWin32.cpp")
+            .file("vendor/Rush/WindowWin32.cpp");
+            println!("cargo:rustc-link-lib=user32");
+        }
     }
 
     build.compile("rush")
