@@ -22,7 +22,7 @@ impl GfxContext {
                 },
                 target: match &c.target {
                     Some(texture) => texture.native,
-                    None => GfxTexture::invalid().native,
+                    None => GfxTexture::default().native,
                 },
             };
             color_targets.push(native);
@@ -30,7 +30,7 @@ impl GfxContext {
         let depth_target = rush_gfx_depth_target {
             target: match &desc.depth.target {
                 Some(texture) => texture.native,
-                None => GfxTexture::invalid().native,
+                None => GfxTexture::default().native,
             },
             clear_depth: desc.depth.clear_depth,
             clear_stencil: desc.depth.clear_stencil,

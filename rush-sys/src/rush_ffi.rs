@@ -691,6 +691,39 @@ pub const rush_gfx_shader_source_type_RUSH_GFX_SHADER_SOURCE_DXBC: rush_gfx_shad
 pub const rush_gfx_shader_source_type_RUSH_GFX_SHADER_SOURCE_DXIL: rush_gfx_shader_source_type = 5;
 pub const rush_gfx_shader_source_type_RUSH_GFX_SHADER_SOURCE_MSL: rush_gfx_shader_source_type = 6;
 pub type rush_gfx_shader_source_type = u32;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_UNKNOWN: rush_gfx_format = 0;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_D24_UNORM_S8_UINT: rush_gfx_format = 1;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_D24_UNORM_X8: rush_gfx_format = 2;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_D32_FLOAT: rush_gfx_format = 3;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_D32_FLOAT_S8_UINT: rush_gfx_format = 4;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_R8_UNORM: rush_gfx_format = 5;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_R16_FLOAT: rush_gfx_format = 6;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_R16_UINT: rush_gfx_format = 7;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_R32_FLOAT: rush_gfx_format = 8;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_R32_UINT: rush_gfx_format = 9;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_RG8_UNORM: rush_gfx_format = 10;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_RG16_FLOAT: rush_gfx_format = 11;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_RG32_FLOAT: rush_gfx_format = 12;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_RGB32_FLOAT: rush_gfx_format = 13;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_RGB8_UNORM: rush_gfx_format = 14;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_RGBA16_FLOAT: rush_gfx_format = 15;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_RGBA16_UNORM: rush_gfx_format = 16;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_RGBA32_FLOAT: rush_gfx_format = 17;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_RGBA8_UNORM: rush_gfx_format = 18;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_RGBA8_SRGB: rush_gfx_format = 19;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_BGRA8_UNORM: rush_gfx_format = 20;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_BGRA8_SRGB: rush_gfx_format = 21;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_BC1_UNORM: rush_gfx_format = 22;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_BC1_UNORM_SRGB: rush_gfx_format = 23;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_BC3_UNORM: rush_gfx_format = 24;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_BC3_UNORM_SRGB: rush_gfx_format = 25;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_BC4_UNORM: rush_gfx_format = 26;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_BC5_UNORM: rush_gfx_format = 27;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_BC6H_UFLOAT: rush_gfx_format = 28;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_BC6H_SFLOAT: rush_gfx_format = 29;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_BC7_UNORM: rush_gfx_format = 30;
+pub const rush_gfx_format_RUSH_GFX_FORMAT_BC7_UNORM_SRGB: rush_gfx_format = 31;
+pub type rush_gfx_format = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rush_gfx_color_target {
@@ -1165,16 +1198,30 @@ fn bindgen_test_layout_rush_gfx_rasterizer_desc() {
         )
     );
 }
+pub const rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_NONE: rush_gfx_buffer_flags = 0;
+pub const rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_VERTEX: rush_gfx_buffer_flags = 1;
+pub const rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_INDEX: rush_gfx_buffer_flags = 2;
+pub const rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_CONSTANT: rush_gfx_buffer_flags = 4;
+pub const rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_STORAGE: rush_gfx_buffer_flags = 8;
+pub const rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_TEXEL: rush_gfx_buffer_flags = 16;
+pub const rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_INDIRECT_ARGS: rush_gfx_buffer_flags = 32;
+pub const rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_RAYTRACING: rush_gfx_buffer_flags = 64;
+pub const rush_gfx_buffer_flags_RUSH_GFX_BUFFER_FLAG_TRANSIENT: rush_gfx_buffer_flags = 2147483648;
+pub type rush_gfx_buffer_flags = u32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct rush_gfx_buffer_desc {
-    pub todo: ::std::os::raw::c_int,
+    pub flags: rush_gfx_buffer_flags,
+    pub format: rush_gfx_format,
+    pub stride: u32,
+    pub count: u32,
+    pub host_visible: bool,
 }
 #[test]
 fn bindgen_test_layout_rush_gfx_buffer_desc() {
     assert_eq!(
         ::std::mem::size_of::<rush_gfx_buffer_desc>(),
-        4usize,
+        20usize,
         concat!("Size of: ", stringify!(rush_gfx_buffer_desc))
     );
     assert_eq!(
@@ -1183,13 +1230,55 @@ fn bindgen_test_layout_rush_gfx_buffer_desc() {
         concat!("Alignment of ", stringify!(rush_gfx_buffer_desc))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<rush_gfx_buffer_desc>())).todo as *const _ as usize },
+        unsafe { &(*(::std::ptr::null::<rush_gfx_buffer_desc>())).flags as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
             stringify!(rush_gfx_buffer_desc),
             "::",
-            stringify!(todo)
+            stringify!(flags)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_buffer_desc>())).format as *const _ as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_buffer_desc),
+            "::",
+            stringify!(format)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_buffer_desc>())).stride as *const _ as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_buffer_desc),
+            "::",
+            stringify!(stride)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<rush_gfx_buffer_desc>())).count as *const _ as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_buffer_desc),
+            "::",
+            stringify!(count)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::std::ptr::null::<rush_gfx_buffer_desc>())).host_visible as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(rush_gfx_buffer_desc),
+            "::",
+            stringify!(host_visible)
         )
     );
 }

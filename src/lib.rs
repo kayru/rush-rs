@@ -11,9 +11,6 @@ use std::os::raw::c_void;
 pub mod gfx_common;
 pub use self::gfx_common::*;
 
-pub mod gfx_device;
-pub use self::gfx_device::*;
-
 pub mod gfx_context;
 pub use self::gfx_context::*;
 
@@ -21,14 +18,12 @@ pub mod gfx_primitive_batch;
 pub use self::gfx_primitive_batch::*;
 
 pub struct Platform {
-    pub gfx_device: GfxDevice,
     pub gfx_context: GfxContext,
 }
 
 impl Platform {
     pub fn new() -> Platform {
         Platform {
-            gfx_device: GfxDevice::new(unsafe { rush_platform_get_device() }),
             gfx_context: GfxContext::new(unsafe { rush_platform_get_context() }),
         }
     }
