@@ -50,8 +50,8 @@ impl GfxContext {
         unsafe { rush_gfx_end_pass(self.native) };
     }
 
-    pub fn set_technique(&mut self, technique: rush_gfx_technique) {
-        unsafe { rush_gfx_set_technique(self.native, technique) };
+    pub fn set_technique(&mut self, technique: &GfxTechnique) {
+        unsafe { rush_gfx_set_technique(self.native, technique.native) };
     }
 
     pub fn set_index_buffer(&mut self, buffer: &GfxBuffer) {

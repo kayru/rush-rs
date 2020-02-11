@@ -147,7 +147,7 @@ impl HelloTriangleApp {
         };
 
         ctx.begin_pass(&pass_desc);
-        ctx.set_technique(self.technique.native);
+        ctx.set_technique(&self.technique);
         ctx.set_vertex_buffer(0, &self.vb);
         ctx.set_constant_buffer(0, &self.cb, 0);
         ctx.set_primitive_type(GfxPrimitiveType::TriangleList);
