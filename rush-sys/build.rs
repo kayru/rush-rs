@@ -54,6 +54,18 @@ fn main() {
             .file("vendor/Rush/WindowWin32.cpp");
             println!("cargo:rustc-link-lib=user32");
         }
+        else if target.contains("linux") {
+            build
+            .define("RUSH_RENDER_API", "RUSH_RENDER_API_VK")
+            .define("RUSH_PLATFORM_LINUX", "1")
+            .define("VK_USE_PLATFORM_XCB_KHR", "1")
+            .file("vendor/Rush/PlatformLinux.cpp")
+            .file("vendor/Rush/WindowXCB.cpp");
+            println!("cargo:rustc-link-lib=xcb");
+            println!("cargo:rustc-link-lib=xcb-keysyms");
+            println!("cargo:rustc-link-lib=pthread");
+            println!("cargo:rustc-link-lib=dl");
+        }
     }
 
     build.compile("rush")
