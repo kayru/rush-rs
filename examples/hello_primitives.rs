@@ -7,14 +7,14 @@ macro_rules! splat2 {
     ($v:expr) => {{
         let v = $v;
         (v, v)
-    }}
+    }};
 }
 
 macro_rules! splat3 {
     ($v:expr) => {{
         let v = $v;
         (v, v, v)
-    }}
+    }};
 }
 
 struct HelloPrimitivesApp {
@@ -35,9 +35,9 @@ impl HelloPrimitivesApp {
             color: vec![GfxColorTarget {
                 target: None,
                 clear_color: ColorRGBA {
-                    r: 0.1,
-                    g: 0.2,
-                    b: 0.3,
+                    r: 11.0 / 255.0,
+                    g: 22.0 / 255.0,
+                    b: 33.0 / 255.0,
                     a: 1.0,
                 },
             }],
@@ -53,9 +53,38 @@ impl HelloPrimitivesApp {
         {
             prim.begin_2d(window_size);
 
-            prim.draw_line_2d(ctx, (100.0, 100.0, 100.0, 200.0), splat2!(ColorRGBA8::red()));
-            prim.draw_line_2d(ctx, (110.0, 100.0, 110.0, 200.0), splat2!(ColorRGBA8::green()));
-            prim.draw_line_2d(ctx, (120.0, 100.0, 120.0, 200.0), splat2!(ColorRGBA8::blue()));
+            prim.draw_line_2d(
+                ctx,
+                (100.0, 100.0, 100.0, 200.0),
+                splat2!(ColorRGBA8::red()),
+            );
+
+            prim.draw_line_2d(
+                ctx,
+                (110.0, 100.0, 110.0, 200.0),
+                splat2!(ColorRGBA8::green()),
+            );
+
+            prim.draw_line_2d(
+                ctx,
+                (120.0, 100.0, 120.0, 200.0),
+                splat2!(ColorRGBA8::blue()),
+            );
+
+            prim.draw_rect_2d(
+                ctx,
+                (130.0, 100.0, 150.0, 200.0),
+                ColorRGBA8::new(128, 128, 255, 255),
+            );
+            prim.flush(ctx);
+
+            prim.draw_tri_2d(
+                ctx,
+                (160.0, 100.0),
+                (200.0, 100.0),
+                (200.0, 200.0),
+                splat3!(ColorRGBA8::new(255, 128, 128, 255)),
+            );
 
             prim.end_2d(ctx);
         }

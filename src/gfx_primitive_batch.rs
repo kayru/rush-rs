@@ -17,7 +17,7 @@ enum BatchMode {
 }
 
 #[repr(C)]
-#[derive(Clone)]
+#[derive(Copy, Clone)]
 pub struct GfxBatchVertex {
     pos: (f32, f32, f32),
     tex: (f32, f32),
@@ -78,10 +78,8 @@ pub struct GfxPrimitiveBatch {
 impl GfxPrimitiveBatch {
     pub fn begin_2d(&mut self, (width, height): (f32, f32)) {
         self.batch_mode = BatchMode::Batch2D;
-        
         let scale = (2.0 / width, -2.0 / height);
-        let bias  = (-1.0, 1.0);
-    
+        let bias = (-1.0, 1.0);
         self.constants.transform2d = [scale.0, scale.1, bias.0, bias.1];
 
         self.constants_dirty = true;
@@ -98,12 +96,64 @@ impl GfxPrimitiveBatch {
         (color0, color1): (ColorRGBA8, ColorRGBA8),
     ) {
         let mut vertices = self.draw_vertices(ctx, GfxPrimitiveType::LineList, 2);
+
         vertices[0].pos = (x0, y0, 0.0);
         vertices[0].tex = (0.0, 0.0);
         vertices[0].col = color0;
         vertices[1].pos = (x1, y1, 0.0);
         vertices[1].tex = (0.0, 0.0);
         vertices[1].col = color1;
+    }
+
+    pub fn draw_rect_2d(
+        &mut self,
+        ctx: &mut GfxContext,
+        (tlx, tly, brx, bry): (f32, f32, f32, f32),
+        color: ColorRGBA8,
+    ) {
+        let mut vertices = self.draw_vertices(ctx, GfxPrimitiveType::TriangleList, 6);
+
+        vertices[0].pos = (tlx, tly, 0.0);
+        vertices[0].tex = (0.0, 0.0);
+        vertices[0].col = color;
+
+        vertices[1].pos = (tlx, bry, 0.0);
+        vertices[1].tex = (0.0, 0.0);
+        vertices[1].col = color;
+
+        vertices[2].pos = (brx, bry, 0.0);
+        vertices[2].tex = (0.0, 0.0);
+        vertices[2].col = color;
+
+        vertices[3] = vertices[0];
+        vertices[4] = vertices[2];
+
+        vertices[5].pos = (brx, tly, 0.0);
+        vertices[5].tex = (0.0, 0.0);
+        vertices[5].col = color;
+    }
+
+    pub fn draw_tri_2d(
+        &mut self,
+        ctx: &mut GfxContext,
+        (ax, ay): (f32, f32),
+        (bx, by): (f32, f32),
+        (cx, cy): (f32, f32),
+        (colora, colorb, colorc): (ColorRGBA8, ColorRGBA8, ColorRGBA8),
+    ) {
+        let mut vertices = self.draw_vertices(ctx, GfxPrimitiveType::TriangleList, 3);
+
+        vertices[0].pos = (ax, ay, 0.0);
+        vertices[0].tex = (0.0, 0.0);
+        vertices[0].col = colora;
+
+        vertices[1].pos = (bx, by, 0.0);
+        vertices[1].tex = (0.0, 0.0);
+        vertices[1].col = colorb;
+
+        vertices[2].pos = (cx, cy, 0.0);
+        vertices[2].tex = (0.0, 0.0);
+        vertices[2].col = colorc;
     }
 
     pub fn draw_vertices(
@@ -135,7 +185,7 @@ impl GfxPrimitiveBatch {
         &mut self.vertices[begin..end]
     }
 
-    fn flush(&mut self, ctx: &mut GfxContext) {
+    pub fn flush(&mut self, ctx: &mut GfxContext) {
         assert_ne!(self.batch_mode, BatchMode::Invalid);
         if self.batch_vertex_count == 0 {
             return;
@@ -156,7 +206,7 @@ impl GfxPrimitiveBatch {
 
         ctx.set_technique(&self.techniques[self.current_technique as usize]);
         ctx.set_primitive_type(self.current_primitive);
-        ctx.draw(0, self.vertices.len() as u32);
+        ctx.draw(0, self.batch_vertex_count);
 
         self.batch_vertex_count = 0;
     }
