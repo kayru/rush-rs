@@ -70,6 +70,12 @@ impl GfxContext {
         unsafe { rush_gfx_set_primitive(self.native, primitive_type as rush_gfx_primitive_type) };
     }
 
+    pub fn update_buffer_from_array<T>(&mut self, buffer: &GfxBuffer, data: *const T, count: u32) {
+        let elem_size = std::mem::size_of::<T>();
+        let size_in_bytes = count as usize * elem_size;
+        unsafe { rush_gfx_update_buffer(self.native, buffer.native, data as *const ::std::os::raw::c_void, size_in_bytes as u32) };
+    }
+
     pub fn draw(&mut self, first_vertex: u32, vertex_count: u32) {
         unsafe { rush_gfx_draw(self.native, first_vertex, vertex_count) };
     }

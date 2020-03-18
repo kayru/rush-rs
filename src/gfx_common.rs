@@ -3,16 +3,16 @@
 extern crate rush_sys;
 use rush_sys::*;
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq)]
 pub enum GfxPrimitiveType {
     PointList = RUSH_GFX_PRIMITIVE_POINT_LIST as isize,
-	LineList = RUSH_GFX_PRIMITIVE_LINE_LIST as isize,
-	LineStrip = RUSH_GFX_PRIMITIVE_LINE_STRIP as isize,
-	TriangleList = RUSH_GFX_PRIMITIVE_TRIANGLE_LIST as isize,
-	TriangleStrip = RUSH_GFX_PRIMITIVE_TRIANGLE_STRIP as isize,
+    LineList = RUSH_GFX_PRIMITIVE_LINE_LIST as isize,
+    LineStrip = RUSH_GFX_PRIMITIVE_LINE_STRIP as isize,
+    TriangleList = RUSH_GFX_PRIMITIVE_TRIANGLE_LIST as isize,
+    TriangleStrip = RUSH_GFX_PRIMITIVE_TRIANGLE_STRIP as isize,
 }
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq)]
 pub enum GfxFormat {
     UNKNOWN = RUSH_GFX_FORMAT_UNKNOWN as isize,
     D24_UNORM_S8_UINT = RUSH_GFX_FORMAT_D24_UNORM_S8_UINT as isize,
@@ -61,9 +61,7 @@ impl Drop for GfxVertexShader {
 impl GfxVertexShader {
     pub fn new_with_source(source: &rush_gfx_shader_source) -> Self {
         GfxVertexShader {
-            native: unsafe {
-                rush_gfx_create_vertex_shader(source)
-            }
+            native: unsafe { rush_gfx_create_vertex_shader(source) },
         }
     }
 }
@@ -81,9 +79,7 @@ impl Drop for GfxPixelShader {
 impl GfxPixelShader {
     pub fn new_with_source(source: &rush_gfx_shader_source) -> Self {
         GfxPixelShader {
-            native: unsafe {
-                rush_gfx_create_pixel_shader(source)
-            }
+            native: unsafe { rush_gfx_create_pixel_shader(source) },
         }
     }
 }
@@ -135,6 +131,57 @@ impl GfxBuffer {
     }
 }
 
+#[derive(Copy, Clone)]
+pub struct ColorRGBA8 {
+    pub r: u8,
+    pub g: u8,
+    pub b: u8,
+    pub a: u8,
+}
+
+impl ColorRGBA8 {
+    pub fn new(r: u8, g: u8, b: u8, a: u8) -> Self {
+        ColorRGBA8 {
+            r: r,
+            g: g,
+            b: b,
+            a: a,
+        }
+    }
+    pub fn red() -> Self {
+        ColorRGBA8::new(0xFF, 0x00, 0x00, 0xFF)
+    }
+    pub fn green() -> Self {
+        ColorRGBA8::new(0x00, 0xFF, 0x00, 0xFF)
+    }
+    pub fn blue() -> Self {
+        ColorRGBA8::new(0x00, 0x00, 0xFF, 0xFF)
+    }
+    pub fn black() -> Self {
+        ColorRGBA8::black_alpha(0x00)
+    }
+    pub fn black_alpha(a: u8) -> Self {
+        ColorRGBA8 {
+            r: 0x00,
+            g: 0x00,
+            b: 0x00,
+            a: a,
+        }
+    }
+}
+
+impl Default for ColorRGBA8 {
+    fn default() -> Self {
+        ColorRGBA8 {
+            r: 0,
+            g: 0,
+            b: 0,
+            a: 0,
+        }
+    }
+}
+
+#[derive(Copy, Clone)]
 pub struct ColorRGBA {
     pub r: f32,
     pub g: f32,
@@ -143,11 +190,33 @@ pub struct ColorRGBA {
 }
 
 impl ColorRGBA {
+    pub fn new(r: f32, g: f32, b: f32, a: f32) -> Self {
+        ColorRGBA {
+            r: r,
+            g: g,
+            b: b,
+            a: a,
+        }
+    }
+    pub fn red() -> Self {
+        ColorRGBA::new(1.0, 0.0, 0.0, 1.0)
+    }
+    pub fn green() -> Self {
+        ColorRGBA::new(0.0, 1.0, 0.0, 1.0)
+    }
+    pub fn blue() -> Self {
+        ColorRGBA::new(0.0, 0.0, 1.0, 1.0)
+    }
     pub fn black() -> Self {
         ColorRGBA::black_alpha(0.0)
     }
     pub fn black_alpha(a: f32) -> Self {
-        ColorRGBA{r: 0.0, g: 0.0, b: 0.0, a:a}
+        ColorRGBA {
+            r: 0.0,
+            g: 0.0,
+            b: 0.0,
+            a: a,
+        }
     }
 }
 
@@ -289,7 +358,7 @@ impl From<&GfxTechniqueDesc> for rush_gfx_technique_desc {
             spec_constant_count: 0,
             spec_constants: std::ptr::null() as *const rush_gfx_spec_constant,
             spec_data: std::ptr::null() as *const ::std::os::raw::c_void,
-            spec_data_size: 0, 
+            spec_data_size: 0,
         }
     }
 }
