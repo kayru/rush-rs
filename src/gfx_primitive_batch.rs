@@ -76,13 +76,15 @@ pub struct GfxPrimitiveBatch {
 }
 
 impl GfxPrimitiveBatch {
-    pub fn begin_2d(&mut self, (width, height): (f32, f32)) {
+    pub fn begin_2d_scale_bias(&mut self, scale: (f32, f32), bias: (f32, f32)) {
         self.batch_mode = BatchMode::Batch2D;
+        self.constants.transform2d = [scale.0, scale.1, bias.0, bias.1];
+        self.constants_dirty = true;
+    }
+    pub fn begin_2d(&mut self, (width, height): (f32, f32)) {
         let scale = (2.0 / width, -2.0 / height);
         let bias = (-1.0, 1.0);
-        self.constants.transform2d = [scale.0, scale.1, bias.0, bias.1];
-
-        self.constants_dirty = true;
+        self.begin_2d_scale_bias(scale, bias);
     }
     pub fn end_2d(&mut self, ctx: &mut GfxContext) {
         self.flush(ctx);

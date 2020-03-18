@@ -89,6 +89,23 @@ impl HelloPrimitivesApp {
             prim.end_2d(ctx);
         }
 
+        {
+            prim.begin_2d_scale_bias((1.0, 1.0), (0.0, 0.0));
+
+            prim.draw_line_2d(ctx, (0.0, 0.0, 1.0, 0.0), splat2!(ColorRGBA8::red()));
+            prim.draw_line_2d(ctx, (0.0, 0.0, 0.0, 1.0), splat2!(ColorRGBA8::green()));
+
+            prim.draw_tri_2d(
+                ctx,
+                (-0.5, -0.5),
+                (-0.5, 0.0),
+                (0.0, -0.5),
+                (ColorRGBA8::red(), ColorRGBA8::green(), ColorRGBA8::blue()),
+            );
+
+            prim.end_2d(ctx);
+        }
+
         ctx.end_pass();
     }
 }
