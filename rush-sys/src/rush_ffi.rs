@@ -273,7 +273,7 @@ pub const RUSH_GFX_BUFFER_FLAG_STORAGE: rush_gfx_buffer_flags = 8;
 pub const RUSH_GFX_BUFFER_FLAG_TEXEL: rush_gfx_buffer_flags = 16;
 pub const RUSH_GFX_BUFFER_FLAG_INDIRECT_ARGS: rush_gfx_buffer_flags = 32;
 pub const RUSH_GFX_BUFFER_FLAG_RAYTRACING: rush_gfx_buffer_flags = 64;
-pub const RUSH_GFX_BUFFER_FLAG_TRANSIENT: rush_gfx_buffer_flags = -2147483648;
+pub const RUSH_GFX_BUFFER_FLAG_TRANSIENT: rush_gfx_buffer_flags = 1073741824;
 pub type rush_gfx_buffer_flags = i32;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
