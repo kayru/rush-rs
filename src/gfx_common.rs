@@ -3,6 +3,60 @@
 extern crate rush_sys;
 use rush_sys::*;
 
+macro_rules! declare_resource_type {
+    ($name:ident, $handle:ident, $native:ident, $release:ident) => {
+        pub struct $name {
+            pub native: $native,
+        }
+        pub trait $handle {
+            fn native(&self) -> $native;
+        }
+        impl $handle for $name {
+            fn native(&self) -> $native {
+                self.native
+            }
+        }
+        impl $handle for $native {
+            fn native(&self) -> $native {
+                *self
+            }
+        }
+        impl Drop for $name {
+            fn drop(&mut self) {
+                unsafe { $release(self.native) };
+            }
+        }
+        impl Default for $name {
+            fn default() -> Self {
+                $name {
+                    native: $native { handle: 0 },
+                }
+            }
+        }
+    };
+}
+
+declare_resource_type!(
+    GfxBuffer,
+    GfxBufferHandle,
+    rush_gfx_buffer,
+    rush_gfx_release_buffer
+);
+
+declare_resource_type!(
+    GfxTexture,
+    GfxTextureHandle,
+    rush_gfx_texture,
+    rush_gfx_release_texture
+);
+
+declare_resource_type!(
+    GfxTechnique,
+    GfxTechniqueHandle,
+    rush_gfx_technique,
+    rush_gfx_release_technique
+);
+
 #[derive(Copy, Clone, PartialEq)]
 pub enum GfxPrimitiveType {
     PointList = RUSH_GFX_PRIMITIVE_POINT_LIST as isize,
@@ -134,10 +188,6 @@ impl From<&GfxTextureDesc> for rush_gfx_texture_desc {
     }
 }
 
-pub struct GfxTexture {
-    pub native: rush_gfx_texture,
-}
-
 impl GfxTexture {
     pub fn new(desc: &GfxTextureDesc) -> Self {
         let native_desc = rush_gfx_texture_desc::from(desc);
@@ -171,31 +221,6 @@ impl GfxTexture {
     }
 }
 
-impl Default for GfxTexture {
-    fn default() -> Self {
-        GfxTexture {
-            native: rush_gfx_texture { handle: 0 },
-        }
-    }
-}
-
-pub struct GfxBuffer {
-    pub native: rush_gfx_buffer,
-}
-
-impl Drop for GfxBuffer {
-    fn drop(&mut self) {
-        unsafe { rush_gfx_release_buffer(self.native) };
-    }
-}
-
-impl Default for GfxBuffer {
-    fn default() -> Self {
-        GfxBuffer {
-            native: rush_gfx_buffer { handle: 0 },
-        }
-    }
-}
 
 impl GfxBuffer {
     pub fn new(desc: &GfxBufferDesc) -> GfxBuffer {
@@ -401,16 +426,6 @@ impl From<&GfxBufferDesc> for rush_gfx_buffer_desc {
             count: desc.count,
             host_visible: desc.host_visible,
         }
-    }
-}
-
-pub struct GfxTechnique {
-    pub native: rush_gfx_technique,
-}
-
-impl Drop for GfxTechnique {
-    fn drop(&mut self) {
-        unsafe { rush_gfx_release_technique(self.native) };
     }
 }
 

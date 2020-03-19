@@ -50,30 +50,42 @@ impl GfxContext {
         unsafe { rush_gfx_end_pass(self.native) };
     }
 
-    pub fn set_technique(&mut self, technique: &GfxTechnique) {
-        unsafe { rush_gfx_set_technique(self.native, technique.native) };
+    pub fn set_technique<H: GfxTechniqueHandle>(&mut self, technique: &H) {
+        unsafe { rush_gfx_set_technique(self.native, technique.native()) };
     }
 
-    pub fn set_index_buffer(&mut self, buffer: &GfxBuffer) {
-        unsafe { rush_gfx_set_index_stream(self.native, buffer.native) };
+    pub fn set_index_buffer<H: GfxBufferHandle>(&mut self, buffer: &H) {
+        unsafe { rush_gfx_set_index_stream(self.native, buffer.native()) };
     }
 
-    pub fn set_vertex_buffer(&mut self, index: u32, buffer: &GfxBuffer) {
-        unsafe { rush_gfx_set_vertex_stream(self.native, index, buffer.native) };
+    pub fn set_vertex_buffer<H: GfxBufferHandle>(&mut self, index: u32, buffer: &H) {
+        unsafe { rush_gfx_set_vertex_stream(self.native, index, buffer.native()) };
     }
 
-    pub fn set_constant_buffer(&mut self, index: u32, buffer: &GfxBuffer, offset: u32) {
-        unsafe { rush_gfx_set_constant_buffer(self.native, index, buffer.native, offset) };
+    pub fn set_constant_buffer<H: GfxBufferHandle>(&mut self, index: u32, buffer: &H, offset: u32) {
+        unsafe { rush_gfx_set_constant_buffer(self.native, index, buffer.native(), offset) };
     }
 
     pub fn set_primitive_type(&mut self, primitive_type: GfxPrimitiveType) {
         unsafe { rush_gfx_set_primitive(self.native, primitive_type as rush_gfx_primitive_type) };
     }
 
-    pub fn update_buffer_from_array<T>(&mut self, buffer: &GfxBuffer, data: *const T, count: u32) {
+    pub fn update_buffer_from_array<T, H: GfxBufferHandle>(
+        &mut self,
+        buffer: &H,
+        data: *const T,
+        count: u32,
+    ) {
         let elem_size = std::mem::size_of::<T>();
         let size_in_bytes = count as usize * elem_size;
-        unsafe { rush_gfx_update_buffer(self.native, buffer.native, data as *const ::std::os::raw::c_void, size_in_bytes as u32) };
+        unsafe {
+            rush_gfx_update_buffer(
+                self.native,
+                buffer.native(),
+                data as *const ::std::os::raw::c_void,
+                size_in_bytes as u32,
+            )
+        };
     }
 
     pub fn draw(&mut self, first_vertex: u32, vertex_count: u32) {
