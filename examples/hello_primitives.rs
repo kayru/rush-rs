@@ -1,4 +1,4 @@
-#![allow(dead_code, unused_macros, unused_variables)]
+#![allow(dead_code, unused_macros, unused_variables, unused_assignments)]
 
 extern crate rush;
 use rush::*;
@@ -19,12 +19,14 @@ macro_rules! splat3 {
 
 struct HelloPrimitivesApp {
     prim: GfxPrimitiveBatch,
+    font: GfxBitmapFont,
 }
 
 impl HelloPrimitivesApp {
     fn new(_platform: &mut Platform) -> HelloPrimitivesApp {
         HelloPrimitivesApp {
             prim: GfxPrimitiveBatch::new(),
+            font: GfxBitmapFont::new_embedded(false, (0,0))
         }
     }
     fn on_update(&mut self, platform: &mut Platform) {
@@ -102,6 +104,18 @@ impl HelloPrimitivesApp {
                 (0.0, -0.5),
                 (ColorRGBA8::red(), ColorRGBA8::green(), ColorRGBA8::blue()),
             );
+
+            prim.end_2d(ctx);
+        }
+
+        // Text rendering
+        {
+            prim.begin_2d(window_size);
+
+            GfxBitmapFontRenderer::new(ctx, prim, &self.font)
+                .set_position((10.0, 10.0))
+                .set_color(ColorRGBA8::white())
+                .print("hello world");
 
             prim.end_2d(ctx);
         }

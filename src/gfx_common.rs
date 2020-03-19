@@ -84,8 +84,91 @@ impl GfxPixelShader {
     }
 }
 
+bitflags! {
+    pub struct GfxUsageFlags: u32 {
+        const NONE = 0 as u32;
+        const SHADER_RESOURCE = RUSH_GFX_USAGE_SHADER_RESOURCE as u32;
+        const RENDER_TARGET = RUSH_GFX_USAGE_RENDER_TARGET as u32;
+        const DEPTH_STENCIL = RUSH_GFX_USAGE_DEPTH_STENCIL as u32;
+        const STORAGE_IMAGE = RUSH_GFX_USAGE_STORAGE_IMAGE as u32;
+        const TRANSFER_SRC = RUSH_GFX_USAGE_TRANSFER_SRC as u32;
+        const TRANSFER_DST = RUSH_GFX_USAGE_TRANSFER_DST as u32;
+    }
+}
+
+#[derive(Copy, Clone, PartialEq)]
+pub enum GfxTextureType {
+    Tex1D = RUSH_GFX_TEXTURE_TYPE_1D as isize,
+    Tex2D = RUSH_GFX_TEXTURE_TYPE_2D as isize,
+    Tex3D = RUSH_GFX_TEXTURE_TYPE_3D as isize,
+    TexCUBE = RUSH_GFX_TEXTURE_TYPE_CUBE as isize,
+    Tex1D_Array = RUSH_GFX_TEXTURE_TYPE_1D_ARRAY as isize,
+    Tex2D_Array = RUSH_GFX_TEXTURE_TYPE_2D_ARRAY as isize,
+    TexCUBE_Array = RUSH_GFX_TEXTURE_TYPE_CUBE_ARRAY as isize,
+}
+
+pub struct GfxTextureDesc {
+    pub width: u32,
+    pub height: u32,
+    pub depth: u32,
+    pub mips: u32,
+    pub samples: u32,
+    pub format: GfxFormat,
+    pub texture_type: GfxTextureType,
+    pub usage: GfxUsageFlags,
+}
+
+impl From<&GfxTextureDesc> for rush_gfx_texture_desc {
+    fn from(desc: &GfxTextureDesc) -> Self {
+        rush_gfx_texture_desc {
+            width: desc.width,
+            height: desc.height,
+            depth: desc.depth,
+            mips: desc.mips,
+            samples: desc.samples,
+            format: desc.format as rush_gfx_format,
+            texture_type: desc.texture_type as rush_gfx_texture_type,
+            usage: desc.usage.bits() as rush_gfx_usage_flags,
+            debug_name: std::ptr::null(),
+        }
+    }
+}
+
 pub struct GfxTexture {
     pub native: rush_gfx_texture,
+}
+
+impl GfxTexture {
+    pub fn new(desc: &GfxTextureDesc) -> Self {
+        let native_desc = rush_gfx_texture_desc::from(desc);
+        GfxTexture {
+            native: unsafe {
+                rush_gfx_create_texture(&native_desc, std::ptr::null(), 0, std::ptr::null())
+            },
+        }
+    }
+    pub fn new_with_pixels<T>(desc: &GfxTextureDesc, pixels: *const T) -> Self {
+        let native_desc = rush_gfx_texture_desc::from(desc);
+        let texture_data = [rush_gfx_texture_data {
+            offset: 0,
+            pixels: std::ptr::null(),
+            mip: 0,
+            slice: 0,
+            width: desc.width,
+            height: desc.height,
+            depth: desc.depth,
+        }];
+        GfxTexture {
+            native: unsafe {
+                rush_gfx_create_texture(
+                    &native_desc,
+                    texture_data.as_ptr(),
+                    1,
+                    pixels as *const ::std::os::raw::c_void,
+                )
+            },
+        }
+    }
 }
 
 impl Default for GfxTexture {
@@ -156,6 +239,9 @@ impl ColorRGBA8 {
     }
     pub fn blue() -> Self {
         ColorRGBA8::new(0x00, 0x00, 0xFF, 0xFF)
+    }
+    pub fn white() -> Self {
+        ColorRGBA8::new(0xFF, 0xFF, 0xFF, 0xFF)
     }
     pub fn black() -> Self {
         ColorRGBA8::black_alpha(0x00)

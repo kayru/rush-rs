@@ -17,6 +17,9 @@ pub use self::gfx_context::*;
 pub mod gfx_primitive_batch;
 pub use self::gfx_primitive_batch::*;
 
+pub mod gfx_bitmap_font;
+pub use self::gfx_bitmap_font::*;
+
 pub struct Platform {
     pub gfx_context: GfxContext,
 }
