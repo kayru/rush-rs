@@ -66,6 +66,14 @@ impl GfxContext {
         unsafe { rush_gfx_set_constant_buffer(self.native, index, buffer.native(), offset) };
     }
 
+    pub fn set_texture<H: GfxTextureHandle>(&mut self, slot: u32, texture: &H) {
+        unsafe { rush_gfx_set_texture(self.native, slot, texture.native()) };
+    }
+
+    pub fn set_sampler<H: GfxSamplerHandle>(&mut self, slot: u32, sampler: &H) {
+        unsafe { rush_gfx_set_sampler(self.native, slot, sampler.native()) };
+    }
+
     pub fn set_primitive_type(&mut self, primitive_type: GfxPrimitiveType) {
         unsafe { rush_gfx_set_primitive(self.native, primitive_type as rush_gfx_primitive_type) };
     }

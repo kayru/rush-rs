@@ -7,7 +7,7 @@ pub type rush_platform_callback_update =
 pub type rush_platform_callback_shutdown =
     ::std::option::Option<unsafe extern "C" fn(user_data: *mut ::std::os::raw::c_void)>;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_app_config {
     pub name: *const ::std::os::raw::c_char,
     pub vsync: ::std::os::raw::c_int,
@@ -42,7 +42,7 @@ extern "C" {
     pub fn rush_platform_get_window() -> *mut rush_window;
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_color_rgba {
     pub r: f32,
     pub g: f32,
@@ -66,70 +66,102 @@ extern "C" {
     pub fn rush_platform_get_context() -> *mut rush_gfx_context;
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_vertex_format {
     pub handle: u16,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_vertex_shader {
     pub handle: u16,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_pixel_shader {
     pub handle: u16,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_geometry_shader {
     pub handle: u16,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_compute_shader {
     pub handle: u16,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_mesh_shader {
     pub handle: u16,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_gfx_ray_tracing_pipeline {
+    pub handle: u16,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_gfx_acceleration_structure {
+    pub handle: u16,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_texture {
     pub handle: u16,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_buffer {
     pub handle: u16,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_sampler {
     pub handle: u16,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_blend_state {
     pub handle: u16,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_depth_stencil_state {
     pub handle: u16,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_rasterizer_state {
     pub handle: u16,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_technique {
     pub handle: u16,
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_gfx_descriptor_set {
+    pub handle: u16,
+}
+pub const RUSH_GFX_TEXTURE_FILTER_POINT: rush_gfx_texture_filter = 0;
+pub const RUSH_GFX_TEXTURE_FILTER_LINEAR: rush_gfx_texture_filter = 1;
+pub const RUSH_GFX_TEXTURE_FILTER_ANISOTROPIC: rush_gfx_texture_filter = 2;
+pub type rush_gfx_texture_filter = i32;
+pub const RUSH_GFX_TEXTURE_WRAP_REPEAT: rush_gfx_texture_wrap = 0;
+pub const RUSH_GFX_TEXTURE_WRAP_MIRROR: rush_gfx_texture_wrap = 1;
+pub const RUSH_GFX_TEXTURE_WRAP_CLAMP: rush_gfx_texture_wrap = 2;
+pub type rush_gfx_texture_wrap = i32;
+pub const RUSH_GFX_COMPARE_FUNC_NEVER: rush_gfx_compare_func = 0;
+pub const RUSH_GFX_COMPARE_FUNC_LESS: rush_gfx_compare_func = 1;
+pub const RUSH_GFX_COMPARE_FUNC_EQUAL: rush_gfx_compare_func = 2;
+pub const RUSH_GFX_COMPARE_FUNC_LESS_EQUAL: rush_gfx_compare_func = 3;
+pub const RUSH_GFX_COMPARE_FUNC_GREATER: rush_gfx_compare_func = 4;
+pub const RUSH_GFX_COMPARE_FUNC_NOT_EQUAL: rush_gfx_compare_func = 5;
+pub const RUSH_GFX_COMPARE_FUNC_GREATER_EQUAL: rush_gfx_compare_func = 6;
+pub const RUSH_GFX_COMPARE_FUNC_ALWAYS: rush_gfx_compare_func = 7;
+pub type rush_gfx_compare_func = i32;
 pub const RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_PLAIN_PS: rush_gfx_embedded_shader_type = 0;
 pub const RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_TEXTURED_PS: rush_gfx_embedded_shader_type = 1;
 pub const RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_2D_VS: rush_gfx_embedded_shader_type = 2;
@@ -188,20 +220,20 @@ pub const RUSH_GFX_FORMAT_BC7_UNORM: rush_gfx_format = 30;
 pub const RUSH_GFX_FORMAT_BC7_UNORM_SRGB: rush_gfx_format = 31;
 pub type rush_gfx_format = i32;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_color_target {
     pub target: rush_gfx_texture,
     pub clear_color: rush_color_rgba,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_depth_target {
     pub target: rush_gfx_texture,
     pub clear_depth: f32,
     pub clear_stencil: u8,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_shader_source {
     pub type_: rush_gfx_shader_source_type,
     pub entry: *const ::std::os::raw::c_char,
@@ -220,7 +252,7 @@ pub const RUSH_GFX_VERTEX_SEMANTIC_BONEINDEX: rush_gfx_vertex_semantic = 8;
 pub const RUSH_GFX_VERTEX_SEMANTIC_BONEWEIGHT: rush_gfx_vertex_semantic = 9;
 pub type rush_gfx_vertex_semantic = i32;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_vertex_element {
     pub semantic: rush_gfx_vertex_semantic,
     pub index: u32,
@@ -243,7 +275,7 @@ pub const RUSH_GFX_TEXTURE_TYPE_2D_ARRAY: rush_gfx_texture_type = 5;
 pub const RUSH_GFX_TEXTURE_TYPE_CUBE_ARRAY: rush_gfx_texture_type = 6;
 pub type rush_gfx_texture_type = i32;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_texture_desc {
     pub width: u32,
     pub height: u32,
@@ -266,7 +298,7 @@ pub const RUSH_GFX_BUFFER_FLAG_RAYTRACING: rush_gfx_buffer_flags = 64;
 pub const RUSH_GFX_BUFFER_FLAG_TRANSIENT: rush_gfx_buffer_flags = 1073741824;
 pub type rush_gfx_buffer_flags = i32;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_buffer_desc {
     pub flags: rush_gfx_buffer_flags,
     pub format: rush_gfx_format,
@@ -275,7 +307,7 @@ pub struct rush_gfx_buffer_desc {
     pub host_visible: bool,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_spec_constant {
     pub id: u32,
     pub offset: u32,
@@ -295,7 +327,7 @@ pub const RUSH_GFX_DESCRIPTOR_SET_FLAG_NONE: rush_gfx_descriptor_set_flags = 0;
 pub const RUSH_GFX_DESCRIPTOR_SET_FLAG_TEXTURE_ARRAY: rush_gfx_descriptor_set_flags = 1;
 pub type rush_gfx_descriptor_set_flags = i32;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_descriptor_set_desc {
     pub constant_buffers: u16,
     pub samplers: u16,
@@ -308,14 +340,14 @@ pub struct rush_gfx_descriptor_set_desc {
     pub flags: rush_gfx_descriptor_set_flags,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_shader_bindings_desc {
     pub descriptor_sets: *const rush_gfx_descriptor_set_desc,
     pub descriptor_set_count: u32,
     pub use_default_descriptor_set: bool,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_technique_desc {
     pub cs: rush_gfx_compute_shader,
     pub ps: rush_gfx_pixel_shader,
@@ -331,7 +363,7 @@ pub struct rush_gfx_technique_desc {
     pub spec_data_size: u32,
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_texture_data {
     pub offset: u64,
     pub pixels: *const ::std::os::raw::c_void,
@@ -340,6 +372,20 @@ pub struct rush_gfx_texture_data {
     pub width: u32,
     pub height: u32,
     pub depth: u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_gfx_sampler_desc {
+    pub filter_min: rush_gfx_texture_filter,
+    pub filter_mag: rush_gfx_texture_filter,
+    pub filter_mip: rush_gfx_texture_filter,
+    pub wrap_u: rush_gfx_texture_wrap,
+    pub wrap_v: rush_gfx_texture_wrap,
+    pub wrap_w: rush_gfx_texture_wrap,
+    pub compare_func: rush_gfx_compare_func,
+    pub compare_enable: bool,
+    pub anisotropy: f32,
+    pub mip_lod_bias: f32,
 }
 extern "C" {
     pub fn rush_gfx_create_vertex_format(
@@ -369,6 +415,9 @@ extern "C" {
     ) -> rush_gfx_texture;
 }
 extern "C" {
+    pub fn rush_gfx_create_sampler_state(desc: *const rush_gfx_sampler_desc) -> rush_gfx_sampler;
+}
+extern "C" {
     pub fn rush_gfx_create_buffer(
         desc: *const rush_gfx_buffer_desc,
         data: *const ::std::os::raw::c_void,
@@ -390,6 +439,15 @@ extern "C" {
     pub fn rush_gfx_release_compute_shader(h: rush_gfx_compute_shader);
 }
 extern "C" {
+    pub fn rush_gfx_release_mesh_shader(h: rush_gfx_mesh_shader);
+}
+extern "C" {
+    pub fn rush_gfx_release_ray_tracing_pipeline(h: rush_gfx_ray_tracing_pipeline);
+}
+extern "C" {
+    pub fn rush_gfx_release_acceleration_structure(h: rush_gfx_acceleration_structure);
+}
+extern "C" {
     pub fn rush_gfx_release_technique(h: rush_gfx_technique);
 }
 extern "C" {
@@ -409,6 +467,9 @@ extern "C" {
 }
 extern "C" {
     pub fn rush_gfx_release_buffer(h: rush_gfx_buffer);
+}
+extern "C" {
+    pub fn rush_gfx_release_descriptor_set(h: rush_gfx_descriptor_set);
 }
 extern "C" {
     pub fn rush_gfx_update_buffer(
@@ -451,6 +512,12 @@ extern "C" {
 }
 extern "C" {
     pub fn rush_gfx_set_vertex_stream(ctx: *mut rush_gfx_context, idx: u32, h: rush_gfx_buffer);
+}
+extern "C" {
+    pub fn rush_gfx_set_texture(ctx: *mut rush_gfx_context, idx: u32, h: rush_gfx_texture);
+}
+extern "C" {
+    pub fn rush_gfx_set_sampler(ctx: *mut rush_gfx_context, idx: u32, h: rush_gfx_sampler);
 }
 extern "C" {
     pub fn rush_gfx_set_constant_buffer(

@@ -36,26 +36,22 @@ macro_rules! declare_resource_type {
     };
 }
 
-declare_resource_type!(
-    GfxBuffer,
-    GfxBufferHandle,
-    rush_gfx_buffer,
-    rush_gfx_release_buffer
-);
-
-declare_resource_type!(
-    GfxTexture,
-    GfxTextureHandle,
-    rush_gfx_texture,
-    rush_gfx_release_texture
-);
-
-declare_resource_type!(
-    GfxTechnique,
-    GfxTechniqueHandle,
-    rush_gfx_technique,
-    rush_gfx_release_technique
-);
+#[rustfmt::skip] declare_resource_type!(GfxVertexFormat, GfxVertexFormatHandle, rush_gfx_vertex_format, rush_gfx_release_vertex_format);
+#[rustfmt::skip] declare_resource_type!(GfxVertexShader, GfxVertexShaderHandle, rush_gfx_vertex_shader, rush_gfx_release_vertex_shader);
+#[rustfmt::skip] declare_resource_type!(GfxPixelShader, GfxPixelShaderHandle, rush_gfx_pixel_shader, rush_gfx_release_pixel_shader);
+#[rustfmt::skip] declare_resource_type!(GfxGeometryShader, GfxGeometryShaderHandle, rush_gfx_geometry_shader, rush_gfx_release_geometry_shader);
+#[rustfmt::skip] declare_resource_type!(GfxComputeShader, GfxComputeShaderHandle, rush_gfx_compute_shader, rush_gfx_release_compute_shader);
+#[rustfmt::skip] declare_resource_type!(GfxMeshShader, GfxMeshShaderHandle, rush_gfx_mesh_shader, rush_gfx_release_mesh_shader);
+#[rustfmt::skip] declare_resource_type!(GfxRayTracingPipeline, GfxRayTracingPipelineHandle, rush_gfx_ray_tracing_pipeline, rush_gfx_release_ray_tracing_pipeline);
+#[rustfmt::skip] declare_resource_type!(GfxAccelerationStructure, GfxAccelerationStructureHandle, rush_gfx_acceleration_structure, rush_gfx_release_acceleration_structure);
+#[rustfmt::skip] declare_resource_type!(GfxTexture, GfxTextureHandle, rush_gfx_texture, rush_gfx_release_texture);
+#[rustfmt::skip] declare_resource_type!(GfxBuffer, GfxBufferHandle, rush_gfx_buffer, rush_gfx_release_buffer);
+#[rustfmt::skip] declare_resource_type!(GfxSampler, GfxSamplerHandle, rush_gfx_sampler, rush_gfx_release_sampler);
+#[rustfmt::skip] declare_resource_type!(GfxBlendState, GfxBlendStateHandle, rush_gfx_blend_state, rush_gfx_release_blend_state);
+#[rustfmt::skip] declare_resource_type!(GfxDepthStencilState, GfxDepthStencilStateHandle, rush_gfx_depth_stencil_state, rush_gfx_release_depth_stencil_state);
+#[rustfmt::skip] declare_resource_type!(GfxRasterizerState, GfxRasterizerStateHandle, rush_gfx_rasterizer_state, rush_gfx_release_rasterizer_state);
+#[rustfmt::skip] declare_resource_type!(GfxTechnique, GfxTechniqueHandle, rush_gfx_technique, rush_gfx_release_technique);
+#[rustfmt::skip] declare_resource_type!(GfxDescriptorSet, GfxDescriptorSetHandle, rush_gfx_descriptor_set, rush_gfx_release_descriptor_set);
 
 #[derive(Copy, Clone, PartialEq)]
 pub enum GfxPrimitiveType {
@@ -102,31 +98,11 @@ pub enum GfxFormat {
     BC7_UNORM_SRGB = RUSH_GFX_FORMAT_BC7_UNORM_SRGB as isize,
 }
 
-pub struct GfxVertexShader {
-    pub native: rush_gfx_vertex_shader,
-}
-
-impl Drop for GfxVertexShader {
-    fn drop(&mut self) {
-        unsafe { rush_gfx_release_vertex_shader(self.native) };
-    }
-}
-
 impl GfxVertexShader {
     pub fn new_with_source(source: &rush_gfx_shader_source) -> Self {
         GfxVertexShader {
             native: unsafe { rush_gfx_create_vertex_shader(source) },
         }
-    }
-}
-
-pub struct GfxPixelShader {
-    pub native: rush_gfx_pixel_shader,
-}
-
-impl Drop for GfxPixelShader {
-    fn drop(&mut self) {
-        unsafe { rush_gfx_release_pixel_shader(self.native) };
     }
 }
 
@@ -220,7 +196,6 @@ impl GfxTexture {
         }
     }
 }
-
 
 impl GfxBuffer {
     pub fn new(desc: &GfxBufferDesc) -> GfxBuffer {
@@ -437,7 +412,7 @@ pub struct GfxTechniqueDesc {
     //pub ms: rush_gfx_mesh_shader,
     //pub vf: rush_gfx_vertex_format,
     //pub bindings: rush_gfx_shader_bindings_desc,
-    pub work_group_size: [u16; 3usize],
+    pub work_group_size: [u16; 3],
     //pub spec_constant_count: u32,
     //pub spec_constants: *const rush_gfx_spec_constant,
     //pub spec_data: *const ::std::os::raw::c_void,

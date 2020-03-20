@@ -114,8 +114,14 @@ impl HelloPrimitivesApp {
 
             GfxBitmapFontRenderer::new(ctx, prim, &self.font)
                 .set_position((10.0, 10.0))
+                .set_color(ColorRGBA8::red())
+                .print("Hello rust world!\n")
+                .set_color(ColorRGBA8::green())
+                .print("This is line 2.\n")
                 .set_color(ColorRGBA8::white())
-                .print("hello world");
+                .print("the quick brown fox jumps over the lazy dog\n")
+                .print("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG\n")
+                .print("0 1 2 3 4 5 6 7 8 9\n");
 
             prim.end_2d(ctx);
         }

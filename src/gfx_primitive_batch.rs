@@ -4,7 +4,7 @@ use crate::gfx_common::*;
 use crate::gfx_context::*;
 use crate::rush_sys::*;
 
-enum SamplerState {
+pub enum GfxBatchSampler {
     Point,
     Linear,
 }
@@ -32,6 +32,8 @@ enum TechniqueID {
     Textured3D = 3,
     COUNT = 4,
 }
+
+const INVALID_TECHNIQUE_ID: TechniqueID = TechniqueID::COUNT;
 
 fn is_textured(id: &TechniqueID) -> bool {
     match id {
@@ -65,6 +67,7 @@ pub struct GfxPrimitiveBatch {
     batch_mode: BatchMode,
     current_technique: TechniqueID,
     current_primitive: GfxPrimitiveType,
+    current_texture: rush_gfx_texture,
     max_batch_vertices: u32,
     batch_vertex_count: u32,
     vertices: Vec<GfxBatchVertex>,
@@ -73,6 +76,8 @@ pub struct GfxPrimitiveBatch {
     constants_dirty: bool,
     constant_buffer: GfxBuffer,
     vertex_buffer: GfxBuffer,
+    sampler_linear: GfxSampler,
+    sampler_point: GfxSampler,
 }
 
 impl GfxPrimitiveBatch {
@@ -89,6 +94,15 @@ impl GfxPrimitiveBatch {
     pub fn end_2d(&mut self, ctx: &mut GfxContext) {
         self.flush(ctx);
         self.batch_mode = BatchMode::Invalid;
+        self.current_technique = INVALID_TECHNIQUE_ID;
+        self.current_texture = rush_gfx_texture { handle: 0 };
+    }
+
+    fn set_technique(&mut self, ctx: &mut GfxContext, technique: TechniqueID) {
+        if self.current_technique != technique {
+            self.flush(ctx);
+            self.current_technique = technique;
+        }
     }
 
     pub fn draw_line_2d(
@@ -97,6 +111,7 @@ impl GfxPrimitiveBatch {
         (x0, y0, x1, y1): (f32, f32, f32, f32),
         (color0, color1): (ColorRGBA8, ColorRGBA8),
     ) {
+        self.set_technique(ctx, TechniqueID::Plain2D);
         let mut vertices = self.draw_vertices(ctx, GfxPrimitiveType::LineList, 2);
 
         vertices[0].pos = (x0, y0, 0.0);
@@ -113,6 +128,8 @@ impl GfxPrimitiveBatch {
         (tlx, tly, brx, bry): (f32, f32, f32, f32),
         color: ColorRGBA8,
     ) {
+        self.set_technique(ctx, TechniqueID::Plain2D);
+
         let mut vertices = self.draw_vertices(ctx, GfxPrimitiveType::TriangleList, 6);
 
         vertices[0].pos = (tlx, tly, 0.0);
@@ -135,6 +152,37 @@ impl GfxPrimitiveBatch {
         vertices[5].col = color;
     }
 
+    pub fn draw_textured_rect_2d(
+        &mut self,
+        ctx: &mut GfxContext,
+        (pos_tlx, pos_tly, pos_brx, pos_bry): (f32, f32, f32, f32),
+        (tex_tlx, tex_tly, tex_brx, tex_bry): (f32, f32, f32, f32),
+        color: ColorRGBA8,
+    ) {
+        self.set_technique(ctx, TechniqueID::Textured2D);
+
+        let mut vertices = self.draw_vertices(ctx, GfxPrimitiveType::TriangleList, 6);
+
+        vertices[0].pos = (pos_tlx, pos_tly, 0.0);
+        vertices[0].tex = (tex_tlx, tex_tly);
+        vertices[0].col = color;
+
+        vertices[1].pos = (pos_tlx, pos_bry, 0.0);
+        vertices[1].tex = (tex_tlx, tex_bry);
+        vertices[1].col = color;
+
+        vertices[2].pos = (pos_brx, pos_bry, 0.0);
+        vertices[2].tex = (tex_brx, tex_bry);
+        vertices[2].col = color;
+
+        vertices[3] = vertices[0];
+        vertices[4] = vertices[2];
+
+        vertices[5].pos = (pos_brx, pos_tly, 0.0);
+        vertices[5].tex = (tex_brx, tex_tly);
+        vertices[5].col = color;
+    }
+
     pub fn draw_tri_2d(
         &mut self,
         ctx: &mut GfxContext,
@@ -143,6 +191,8 @@ impl GfxPrimitiveBatch {
         (cx, cy): (f32, f32),
         (colora, colorb, colorc): (ColorRGBA8, ColorRGBA8, ColorRGBA8),
     ) {
+        self.set_technique(ctx, TechniqueID::Plain2D);
+
         let mut vertices = self.draw_vertices(ctx, GfxPrimitiveType::TriangleList, 3);
 
         vertices[0].pos = (ax, ay, 0.0);
@@ -185,6 +235,23 @@ impl GfxPrimitiveBatch {
 
         self.batch_vertex_count += vertex_count;
         &mut self.vertices[begin..end]
+    }
+
+    pub fn set_texture(
+        &mut self,
+        ctx: &mut GfxContext,
+        texture: rush_gfx_texture,
+        sampler: GfxBatchSampler,
+    ) {
+        if self.current_texture != texture {
+            self.flush(ctx);
+            self.current_texture = texture;
+            ctx.set_texture(0, &texture);
+            match sampler {
+                GfxBatchSampler::Linear => ctx.set_sampler(0, &self.sampler_linear),
+                GfxBatchSampler::Point => ctx.set_sampler(0, &self.sampler_point),
+            };
+        }
     }
 
     pub fn flush(&mut self, ctx: &mut GfxContext) {
@@ -357,10 +424,39 @@ impl GfxPrimitiveBatch {
             host_visible: false,
         });
 
+        let sampler_linear_desc = rush_gfx_sampler_desc {
+            filter_min: RUSH_GFX_TEXTURE_FILTER_LINEAR,
+            filter_mag: RUSH_GFX_TEXTURE_FILTER_LINEAR,
+            filter_mip: RUSH_GFX_TEXTURE_FILTER_LINEAR,
+            wrap_u: RUSH_GFX_TEXTURE_WRAP_REPEAT,
+            wrap_v: RUSH_GFX_TEXTURE_WRAP_REPEAT,
+            wrap_w: RUSH_GFX_TEXTURE_WRAP_REPEAT,
+            compare_func: RUSH_GFX_COMPARE_FUNC_ALWAYS,
+            compare_enable: false,
+            anisotropy: 1.0,
+            mip_lod_bias: 0.0,
+        };
+
+        let sampler_point_desc = rush_gfx_sampler_desc {
+            filter_min: RUSH_GFX_TEXTURE_FILTER_POINT,
+            filter_mag: RUSH_GFX_TEXTURE_FILTER_POINT,
+            filter_mip: RUSH_GFX_TEXTURE_FILTER_POINT,
+            ..sampler_linear_desc
+        };
+
+        let sampler_linear = GfxSampler {
+            native: unsafe { rush_gfx_create_sampler_state(&sampler_linear_desc) },
+        };
+
+        let sampler_point = GfxSampler {
+            native: unsafe { rush_gfx_create_sampler_state(&sampler_point_desc) },
+        };
+
         GfxPrimitiveBatch {
             batch_mode: BatchMode::Invalid,
-            current_technique: TechniqueID::Plain2D,
+            current_technique: INVALID_TECHNIQUE_ID,
             current_primitive: GfxPrimitiveType::LineList,
+            current_texture: rush_gfx_texture { handle: 0 },
             max_batch_vertices: default_batch_vertices,
             batch_vertex_count: 0,
             vertices: initial_vertices,
@@ -374,6 +470,8 @@ impl GfxPrimitiveBatch {
             constants_dirty: true,
             constant_buffer: constant_buffer,
             vertex_buffer: vertex_buffer,
+            sampler_linear: sampler_linear,
+            sampler_point: sampler_point,
         }
     }
 }
