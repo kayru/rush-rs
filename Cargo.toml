@@ -8,4 +8,3 @@ path = "rush-sys/"
 
 [dependencies]
 bitflags = "1.2.1"
-smallvec = "1.2.0"
