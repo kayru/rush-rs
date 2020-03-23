@@ -1,7 +1,7 @@
 #![allow(dead_code, unused_macros, unused_variables, unused_assignments)]
 
-extern crate rush;
-use rush::*;
+extern crate rush_rs;
+use rush_rs::*;
 
 struct HelloPrimitivesApp {
     prim: GfxPrimitiveBatch,
@@ -136,5 +136,5 @@ impl App for BootstrapApp {
 
 fn main() {
     let app = Box::new(BootstrapApp { app: None });
-    rush::run(app);
+    rush_rs::run(app);
 }

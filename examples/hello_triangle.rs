@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 
-extern crate rush;
-use rush::*;
+extern crate rush_rs;
+use rush_rs::*;
 
 extern crate rush_sys;
 use rush_sys::*;
@@ -176,5 +176,5 @@ impl App for BootstrapApp {
 
 fn main() {
     let app = Box::new(BootstrapApp { app: None });
-    rush::run(app);
+    rush_rs::run(app);
 }

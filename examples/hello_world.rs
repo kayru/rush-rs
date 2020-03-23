@@ -1,5 +1,5 @@
-extern crate rush;
-use rush::*;
+extern crate rush_rs;
+use rush_rs::*;
 
 struct HelloWorldApp {
 	counter : u32,
@@ -39,5 +39,5 @@ fn main() {
 	let app = Box::new(HelloWorldApp{
 		counter: 0
 	});
-	rush::run(app);
+	rush_rs::run(app);
 }

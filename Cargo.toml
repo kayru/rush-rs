@@ -1,5 +1,5 @@
 [package]
-name = "rush"
+name = "rush-rs"
 version = "0.0.1"
 repository = "https://github.com/kayru/rush-rs"
 authors = ["Yuriy O'Donnell <yuriyo@gmail.com>"]
