@@ -1,7 +1,11 @@
 [package]
 name = "rush-sys"
 version = "0.0.1"
+repository = "https://github.com/kayru/rush-rs"
 authors = ["Yuriy O'Donnell <yuriyo@gmail.com>"]
+description = "Raw FFI bindings for librush graphics prototyping framework"
+categories = ["external-ffi-bindings"]
+license = "MIT"
 edition = "2018"
 build = "build.rs"
 
