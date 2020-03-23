@@ -258,6 +258,16 @@ pub struct rush_gfx_depth_target {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_gfx_capability {
+    pub api_name: *const ::std::os::raw::c_char,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_gfx_stats {
+    pub draw_calls: u32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_viewport {
     pub x: f32,
     pub y: f32,
@@ -365,6 +375,13 @@ pub struct rush_gfx_buffer_desc {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_gfx_mapped_buffer {
+    pub data: *mut ::std::os::raw::c_void,
+    pub size: u32,
+    pub handle: rush_gfx_buffer,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_spec_constant {
     pub id: u32,
     pub offset: u32,
@@ -455,6 +472,21 @@ pub struct rush_gfx_sampler_desc {
     pub compare_enable: bool,
     pub anisotropy: f32,
     pub mip_lod_bias: f32,
+}
+extern "C" {
+    pub fn rush_gfx_set_present_interval(interval: u32);
+}
+extern "C" {
+    pub fn rush_gfx_finish();
+}
+extern "C" {
+    pub fn rush_gfx_get_capability() -> rush_gfx_capability;
+}
+extern "C" {
+    pub fn rush_gfx_get_stats() -> rush_gfx_stats;
+}
+extern "C" {
+    pub fn rush_gfx_reset_stats();
 }
 extern "C" {
     pub fn rush_gfx_create_vertex_format(
@@ -566,6 +598,9 @@ extern "C" {
     pub fn rush_gfx_release_descriptor_set(h: rush_gfx_descriptor_set);
 }
 extern "C" {
+    pub fn rush_gfx_unmap_buffer(in_mapped_buffer: *const rush_gfx_mapped_buffer);
+}
+extern "C" {
     pub fn rush_gfx_update_buffer(
         ctx: *mut rush_gfx_context,
         h: rush_gfx_buffer,
@@ -620,6 +655,24 @@ extern "C" {
     pub fn rush_gfx_set_sampler(ctx: *mut rush_gfx_context, idx: u32, h: rush_gfx_sampler);
 }
 extern "C" {
+    pub fn rush_gfx_set_storage_image(ctx: *mut rush_gfx_context, idx: u32, h: rush_gfx_texture);
+}
+extern "C" {
+    pub fn rush_gfx_set_storage_buffer(ctx: *mut rush_gfx_context, idx: u32, h: rush_gfx_buffer);
+}
+extern "C" {
+    pub fn rush_gfx_set_blend_state(ctx: *mut rush_gfx_context, h: rush_gfx_blend_state);
+}
+extern "C" {
+    pub fn rush_gfx_set_depth_stencil_state(
+        ctx: *mut rush_gfx_context,
+        h: rush_gfx_depth_stencil_state,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_set_rasterizer_state(ctx: *mut rush_gfx_context, h: rush_gfx_rasterizer_state);
+}
+extern "C" {
     pub fn rush_gfx_set_constant_buffer(
         ctx: *mut rush_gfx_context,
         idx: u32,
@@ -628,7 +681,87 @@ extern "C" {
     );
 }
 extern "C" {
+    pub fn rush_gfx_resolve_image(
+        ctx: *mut rush_gfx_context,
+        src: rush_gfx_texture,
+        dst: rush_gfx_texture,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_dispatch(ctx: *mut rush_gfx_context, size_x: u32, size_y: u32, size_z: u32);
+}
+extern "C" {
+    pub fn rush_gfx_dispatch2(
+        ctx: *mut rush_gfx_context,
+        size_x: u32,
+        size_y: u32,
+        size_z: u32,
+        push_constants: *const ::std::os::raw::c_void,
+        push_constants_size: u32,
+    );
+}
+extern "C" {
     pub fn rush_gfx_draw(ctx: *mut rush_gfx_context, first_vertex: u32, vertex_count: u32);
+}
+extern "C" {
+    pub fn rush_gfx_draw_indexed(
+        ctx: *mut rush_gfx_context,
+        index_count: u32,
+        first_index: u32,
+        base_vertex: u32,
+        vertex_count: u32,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_draw_indexed2(
+        ctx: *mut rush_gfx_context,
+        index_count: u32,
+        first_index: u32,
+        base_vertex: u32,
+        vertex_count: u32,
+        push_constants: *const ::std::os::raw::c_void,
+        push_constants_size: u32,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_draw_indexed_instanced(
+        ctx: *mut rush_gfx_context,
+        index_count: u32,
+        first_index: u32,
+        base_vertex: u32,
+        vertex_count: u32,
+        instance_count: u32,
+        instance_offset: u32,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_draw_indexed_indirect(
+        ctx: *mut rush_gfx_context,
+        args_buffer: rush_gfx_buffer,
+        args_buffer_offset: u32,
+        draw_count: u32,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_dispatch_indirect(
+        ctx: *mut rush_gfx_context,
+        args_buffer: rush_gfx_buffer,
+        args_buffer_offset: u32,
+        push_constants: *const ::std::os::raw::c_void,
+        push_constants_size: u32,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_push_marker(ctx: *mut rush_gfx_context, marker: *const ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn rush_gfx_pop_marker(ctx: *mut rush_gfx_context);
+}
+extern "C" {
+    pub fn rush_gfx_begin_timer(ctx: *mut rush_gfx_context, timestamp_id: u32);
+}
+extern "C" {
+    pub fn rush_gfx_end_timer(ctx: *mut rush_gfx_context, timestamp_id: u32);
 }
 extern "C" {
     pub fn rush_gfx_get_embedded_shader(
