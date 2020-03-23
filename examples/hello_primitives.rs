@@ -3,20 +3,6 @@
 extern crate rush;
 use rush::*;
 
-macro_rules! splat2 {
-    ($v:expr) => {{
-        let v = $v;
-        (v, v)
-    }};
-}
-
-macro_rules! splat3 {
-    ($v:expr) => {{
-        let v = $v;
-        (v, v, v)
-    }};
-}
-
 struct HelloPrimitivesApp {
     prim: GfxPrimitiveBatch,
     font: GfxBitmapFont,

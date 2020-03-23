@@ -20,6 +20,30 @@ pub use self::gfx_primitive_batch::*;
 pub mod gfx_bitmap_font;
 pub use self::gfx_bitmap_font::*;
 
+#[macro_export]
+macro_rules! splat2 {
+    ($v:expr) => {{
+        let v = $v;
+        (v, v)
+    }};
+}
+
+#[macro_export]
+macro_rules! splat3 {
+    ($v:expr) => {{
+        let v = $v;
+        (v, v, v)
+    }};
+}
+
+#[macro_export]
+macro_rules! splat4 {
+    ($v:expr) => {{
+        let v = $v;
+        (v, v, v, v)
+    }};
+}
+
 pub struct Platform {
     pub gfx_context: GfxContext,
 }
