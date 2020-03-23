@@ -4,7 +4,7 @@ version = "0.0.1"
 repository = "https://github.com/kayru/rush-rs"
 authors = ["Yuriy O'Donnell <yuriyo@gmail.com>"]
 description = "High level bindings for librush graphics prototyping framework"
-categories = ["graphics-api"]
+categories = ["rendering"]
 license = "MIT"
 
 [dependencies.rush-sys]
