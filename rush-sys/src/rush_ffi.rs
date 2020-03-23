@@ -145,6 +145,23 @@ pub struct rush_gfx_technique {
 pub struct rush_gfx_descriptor_set {
     pub handle: u16,
 }
+pub const RUSH_GFX_BLEND_PARAM_ZERO: rush_gfx_blend_param = 0;
+pub const RUSH_GFX_BLEND_PARAM_ONE: rush_gfx_blend_param = 1;
+pub const RUSH_GFX_BLEND_PARAM_SRC_COLOR: rush_gfx_blend_param = 2;
+pub const RUSH_GFX_BLEND_PARAM_INV_SRC_COLOR: rush_gfx_blend_param = 3;
+pub const RUSH_GFX_BLEND_PARAM_SRC_ALPHA: rush_gfx_blend_param = 4;
+pub const RUSH_GFX_BLEND_PARAM_INV_SRC_ALPHA: rush_gfx_blend_param = 5;
+pub const RUSH_GFX_BLEND_PARAM_DEST_ALPHA: rush_gfx_blend_param = 6;
+pub const RUSH_GFX_BLEND_PARAM_INV_DEST_ALPHA: rush_gfx_blend_param = 7;
+pub const RUSH_GFX_BLEND_PARAM_DEST_COLOR: rush_gfx_blend_param = 8;
+pub const RUSH_GFX_BLEND_PARAM_INV_DEST_COLOR: rush_gfx_blend_param = 9;
+pub type rush_gfx_blend_param = i32;
+pub const RUSH_GFX_BLEND_OP_ADD: rush_gfx_blend_op = 0;
+pub const RUSH_GFX_BLEND_OP_SUBTRACT: rush_gfx_blend_op = 1;
+pub const RUSH_GFX_BLEND_OP_REV_SUBTRACT: rush_gfx_blend_op = 2;
+pub const RUSH_GFX_BLEND_OP_MIN: rush_gfx_blend_op = 3;
+pub const RUSH_GFX_BLEND_OP_MAX: rush_gfx_blend_op = 4;
+pub type rush_gfx_blend_op = i32;
 pub const RUSH_GFX_TEXTURE_FILTER_POINT: rush_gfx_texture_filter = 0;
 pub const RUSH_GFX_TEXTURE_FILTER_LINEAR: rush_gfx_texture_filter = 1;
 pub const RUSH_GFX_TEXTURE_FILTER_ANISOTROPIC: rush_gfx_texture_filter = 2;
@@ -162,6 +179,13 @@ pub const RUSH_GFX_COMPARE_FUNC_NOT_EQUAL: rush_gfx_compare_func = 5;
 pub const RUSH_GFX_COMPARE_FUNC_GREATER_EQUAL: rush_gfx_compare_func = 6;
 pub const RUSH_GFX_COMPARE_FUNC_ALWAYS: rush_gfx_compare_func = 7;
 pub type rush_gfx_compare_func = i32;
+pub const RUSH_GFX_FILL_MODE_SOLID: rush_gfx_fill_mode = 0;
+pub const RUSH_GFX_FILL_MODE_WIREFRAME: rush_gfx_fill_mode = 1;
+pub type rush_gfx_fill_mode = i32;
+pub const RUSH_GFX_CULL_MODE_NONE: rush_gfx_cull_mode = 0;
+pub const RUSH_GFX_CULL_MODE_CW: rush_gfx_cull_mode = 1;
+pub const RUSH_GFX_CULL_MODE_CCW: rush_gfx_cull_mode = 2;
+pub type rush_gfx_cull_mode = i32;
 pub const RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_PLAIN_PS: rush_gfx_embedded_shader_type = 0;
 pub const RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_TEXTURED_PS: rush_gfx_embedded_shader_type = 1;
 pub const RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_2D_VS: rush_gfx_embedded_shader_type = 2;
@@ -234,6 +258,24 @@ pub struct rush_gfx_depth_target {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_gfx_viewport {
+    pub x: f32,
+    pub y: f32,
+    pub w: f32,
+    pub h: f32,
+    pub depth_min: f32,
+    pub depth_max: f32,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_gfx_rect {
+    pub left: ::std::os::raw::c_int,
+    pub top: ::std::os::raw::c_int,
+    pub right: ::std::os::raw::c_int,
+    pub bottom: ::std::os::raw::c_int,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_shader_source {
     pub type_: rush_gfx_shader_source_type,
     pub entry: *const ::std::os::raw::c_char,
@@ -286,6 +328,21 @@ pub struct rush_gfx_texture_desc {
     pub texture_type: rush_gfx_texture_type,
     pub usage: rush_gfx_usage_flags,
     pub debug_name: *const ::std::os::raw::c_char,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_gfx_depth_stencil_desc {
+    pub compare_func: rush_gfx_compare_func,
+    pub enable: bool,
+    pub write_enable: bool,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_gfx_rasterizer_desc {
+    pub fill_mode: rush_gfx_fill_mode,
+    pub cull_mode: rush_gfx_cull_mode,
+    pub depth_bias: f32,
+    pub depth_bias_slope_scale: f32,
 }
 pub const RUSH_GFX_BUFFER_FLAG_NONE: rush_gfx_buffer_flags = 0;
 pub const RUSH_GFX_BUFFER_FLAG_VERTEX: rush_gfx_buffer_flags = 1;
@@ -375,6 +432,18 @@ pub struct rush_gfx_texture_data {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_gfx_blend_state_desc {
+    pub src: rush_gfx_blend_param,
+    pub dst: rush_gfx_blend_param,
+    pub op: rush_gfx_blend_op,
+    pub alpha_src: rush_gfx_blend_param,
+    pub alpha_dst: rush_gfx_blend_param,
+    pub alpha_op: rush_gfx_blend_op,
+    pub alpha_separate: bool,
+    pub enable: bool,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_gfx_sampler_desc {
     pub filter_min: rush_gfx_texture_filter,
     pub filter_mag: rush_gfx_texture_filter,
@@ -404,6 +473,16 @@ extern "C" {
     ) -> rush_gfx_pixel_shader;
 }
 extern "C" {
+    pub fn rush_gfx_create_geometry_shader(
+        code: *const rush_gfx_shader_source,
+    ) -> rush_gfx_geometry_shader;
+}
+extern "C" {
+    pub fn rush_gfx_create_compute_shader(
+        code: *const rush_gfx_shader_source,
+    ) -> rush_gfx_compute_shader;
+}
+extern "C" {
     pub fn rush_gfx_create_technique(desc: *const rush_gfx_technique_desc) -> rush_gfx_technique;
 }
 extern "C" {
@@ -415,7 +494,22 @@ extern "C" {
     ) -> rush_gfx_texture;
 }
 extern "C" {
+    pub fn rush_gfx_create_blend_state(
+        desc: *const rush_gfx_blend_state_desc,
+    ) -> rush_gfx_blend_state;
+}
+extern "C" {
     pub fn rush_gfx_create_sampler_state(desc: *const rush_gfx_sampler_desc) -> rush_gfx_sampler;
+}
+extern "C" {
+    pub fn rush_gfx_create_depth_stencil_state(
+        desc: *const rush_gfx_depth_stencil_desc,
+    ) -> rush_gfx_depth_stencil_state;
+}
+extern "C" {
+    pub fn rush_gfx_create_rasterizer_state(
+        desc: *const rush_gfx_rasterizer_desc,
+    ) -> rush_gfx_rasterizer_state;
 }
 extern "C" {
     pub fn rush_gfx_create_buffer(
@@ -500,6 +594,12 @@ extern "C" {
 }
 extern "C" {
     pub fn rush_gfx_end_pass(ctx: *mut rush_gfx_context);
+}
+extern "C" {
+    pub fn rush_gfx_set_viewport(ctx: *mut rush_gfx_context, _viewport: *const rush_gfx_viewport);
+}
+extern "C" {
+    pub fn rush_gfx_set_scissor_rect(ctx: *mut rush_gfx_context, rect: *const rush_gfx_rect);
 }
 extern "C" {
     pub fn rush_gfx_set_technique(ctx: *mut rush_gfx_context, h: rush_gfx_technique);
