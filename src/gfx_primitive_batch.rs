@@ -35,14 +35,6 @@ enum TechniqueID {
 
 const INVALID_TECHNIQUE_ID: TechniqueID = TechniqueID::COUNT;
 
-fn is_textured(id: &TechniqueID) -> bool {
-    match id {
-        TechniqueID::Textured2D => true,
-        TechniqueID::Textured3D => true,
-        _ => false,
-    }
-}
-
 #[repr(C)]
 #[derive(Copy, Clone)]
 struct Constants {
@@ -314,23 +306,12 @@ impl GfxPrimitiveBatch {
             },
         ];
 
-        let vf = unsafe { rush_gfx_create_vertex_format(vf_desc.as_ptr(), vf_desc.len() as u32) };
+        let vf = GfxVertexFormat::new(&vf_desc);
 
-        let vs_2d = GfxVertexShader::new_with_source(unsafe {
-            &rush_gfx_get_embedded_shader(RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_2D_VS)
-        });
-
-        let vs_3d = GfxVertexShader::new_with_source(unsafe {
-            &rush_gfx_get_embedded_shader(RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_3D_VS)
-        });
-
-        let ps_plain = GfxPixelShader::new_with_source(unsafe {
-            &rush_gfx_get_embedded_shader(RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_PLAIN_PS)
-        });
-
-        let ps_textured = GfxPixelShader::new_with_source(unsafe {
-            &rush_gfx_get_embedded_shader(RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_TEXTURED_PS)
-        });
+        let vs_2d = GfxVertexShader::new_embedded(GfxEmbeddedVertexShader::Primitive2D);
+        let vs_3d = GfxVertexShader::new_embedded(GfxEmbeddedVertexShader::Primitive3D);
+        let ps_plain = GfxPixelShader::new_embedded(GfxEmbeddedPixelShader::PrimitivePlain);
+        let ps_textured = GfxPixelShader::new_embedded(GfxEmbeddedPixelShader::PrimitiveTextured);
 
         let descriptor_sets_plain = [rush_gfx_descriptor_set_desc {
             constant_buffers: 1,
@@ -344,69 +325,53 @@ impl GfxPrimitiveBatch {
             ..Default::default()
         }];
 
-        let technique_plain_2d = GfxTechnique {
-            native: unsafe {
-                rush_gfx_create_technique(&rush_gfx_technique_desc {
-                    vs: vs_2d.native,
-                    ps: ps_plain.native,
-                    vf: vf,
-                    bindings: rush_gfx_shader_bindings_desc {
-                        descriptor_sets: descriptor_sets_plain.as_ptr(),
-                        descriptor_set_count: descriptor_sets_plain.len() as u32,
-                        use_default_descriptor_set: true,
-                    },
-                    ..Default::default()
-                })
+        let technique_plain_2d = GfxTechnique::new(&rush_gfx_technique_desc {
+            vs: vs_2d.native,
+            ps: ps_plain.native,
+            vf: vf.native,
+            bindings: rush_gfx_shader_bindings_desc {
+                descriptor_sets: descriptor_sets_plain.as_ptr(),
+                descriptor_set_count: descriptor_sets_plain.len() as u32,
+                use_default_descriptor_set: true,
             },
-        };
+            ..Default::default()
+        });
 
-        let technique_plain_3d = GfxTechnique {
-            native: unsafe {
-                rush_gfx_create_technique(&rush_gfx_technique_desc {
-                    vs: vs_3d.native,
-                    ps: ps_plain.native,
-                    vf: vf,
-                    bindings: rush_gfx_shader_bindings_desc {
-                        descriptor_sets: descriptor_sets_plain.as_ptr(),
-                        descriptor_set_count: descriptor_sets_plain.len() as u32,
-                        use_default_descriptor_set: true,
-                    },
-                    ..Default::default()
-                })
+        let technique_plain_3d = GfxTechnique::new(&rush_gfx_technique_desc {
+            vs: vs_3d.native,
+            ps: ps_plain.native,
+            vf: vf.native,
+            bindings: rush_gfx_shader_bindings_desc {
+                descriptor_sets: descriptor_sets_plain.as_ptr(),
+                descriptor_set_count: descriptor_sets_plain.len() as u32,
+                use_default_descriptor_set: true,
             },
-        };
+            ..Default::default()
+        });
 
-        let technique_textured_2d = GfxTechnique {
-            native: unsafe {
-                rush_gfx_create_technique(&rush_gfx_technique_desc {
-                    vs: vs_2d.native,
-                    ps: ps_textured.native,
-                    vf: vf,
-                    bindings: rush_gfx_shader_bindings_desc {
-                        descriptor_sets: descriptor_sets_textured.as_ptr(),
-                        descriptor_set_count: descriptor_sets_textured.len() as u32,
-                        use_default_descriptor_set: true,
-                    },
-                    ..Default::default()
-                })
+        let technique_textured_2d = GfxTechnique::new(&rush_gfx_technique_desc {
+            vs: vs_2d.native,
+            ps: ps_textured.native,
+            vf: vf.native,
+            bindings: rush_gfx_shader_bindings_desc {
+                descriptor_sets: descriptor_sets_textured.as_ptr(),
+                descriptor_set_count: descriptor_sets_textured.len() as u32,
+                use_default_descriptor_set: true,
             },
-        };
+            ..Default::default()
+        });
 
-        let technique_textured_3d = GfxTechnique {
-            native: unsafe {
-                rush_gfx_create_technique(&rush_gfx_technique_desc {
-                    vs: vs_3d.native,
-                    ps: ps_textured.native,
-                    vf: vf,
-                    bindings: rush_gfx_shader_bindings_desc {
-                        descriptor_sets: descriptor_sets_textured.as_ptr(),
-                        descriptor_set_count: descriptor_sets_textured.len() as u32,
-                        use_default_descriptor_set: true,
-                    },
-                    ..Default::default()
-                })
+        let technique_textured_3d = GfxTechnique::new(&rush_gfx_technique_desc {
+            vs: vs_3d.native,
+            ps: ps_textured.native,
+            vf: vf.native,
+            bindings: rush_gfx_shader_bindings_desc {
+                descriptor_sets: descriptor_sets_textured.as_ptr(),
+                descriptor_set_count: descriptor_sets_textured.len() as u32,
+                use_default_descriptor_set: true,
             },
-        };
+            ..Default::default()
+        });
 
         let constant_buffer = GfxBuffer::new(&GfxBufferDesc {
             flags: GfxBufferFlags::CONSTANT | GfxBufferFlags::TRANSIENT,
@@ -444,13 +409,8 @@ impl GfxPrimitiveBatch {
             ..sampler_linear_desc
         };
 
-        let sampler_linear = GfxSampler {
-            native: unsafe { rush_gfx_create_sampler_state(&sampler_linear_desc) },
-        };
-
-        let sampler_point = GfxSampler {
-            native: unsafe { rush_gfx_create_sampler_state(&sampler_point_desc) },
-        };
+        let sampler_linear = GfxSampler::new(&sampler_linear_desc);
+        let sampler_point = GfxSampler::new(&sampler_point_desc);
 
         GfxPrimitiveBatch {
             batch_mode: BatchMode::Invalid,

@@ -98,11 +98,38 @@ pub enum GfxFormat {
     BC7_UNORM_SRGB = RUSH_GFX_FORMAT_BC7_UNORM_SRGB as isize,
 }
 
+impl GfxVertexFormat {
+    pub fn new(elements: &[rush_gfx_vertex_element]) -> Self {
+        GfxVertexFormat {
+            native: unsafe { rush_gfx_create_vertex_format(elements.as_ptr(), elements.len() as u32) }
+        } 
+    }
+}
+
+pub enum GfxEmbeddedVertexShader {
+    Primitive2D,
+    Primitive3D,
+}
+
+pub enum GfxEmbeddedPixelShader {
+    PrimitivePlain,
+    PrimitiveTextured,
+}
+
 impl GfxVertexShader {
     pub fn new_with_source(source: &rush_gfx_shader_source) -> Self {
         GfxVertexShader {
             native: unsafe { rush_gfx_create_vertex_shader(source) },
         }
+    }
+    pub fn new_embedded(id: GfxEmbeddedVertexShader) -> Self {
+        let source = unsafe {
+            rush_gfx_get_embedded_shader(match id {
+                GfxEmbeddedVertexShader::Primitive2D => RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_2D_VS,
+                GfxEmbeddedVertexShader::Primitive3D => RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_3D_VS,
+            })
+        };
+        GfxVertexShader::new_with_source(&source)
     }
 }
 
@@ -111,6 +138,19 @@ impl GfxPixelShader {
         GfxPixelShader {
             native: unsafe { rush_gfx_create_pixel_shader(source) },
         }
+    }
+    pub fn new_embedded(id: GfxEmbeddedPixelShader) -> Self {
+        let source = unsafe {
+            rush_gfx_get_embedded_shader(match id {
+                GfxEmbeddedPixelShader::PrimitivePlain => {
+                    RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_PLAIN_PS
+                }
+                GfxEmbeddedPixelShader::PrimitiveTextured => {
+                    RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_TEXTURED_PS
+                }
+            })
+        };
+        GfxPixelShader::new_with_source(&source)
     }
 }
 
@@ -419,6 +459,14 @@ pub struct GfxTechniqueDesc {
     //pub spec_data_size: u32,
 }
 
+impl GfxTechnique {
+    pub fn new(desc: &rush_gfx_technique_desc) -> Self {
+        GfxTechnique {
+            native: unsafe { rush_gfx_create_technique(desc) }
+        }
+    }
+}
+
 /*
 impl From<&GfxTechniqueDesc> for rush_gfx_technique_desc {
     fn from(desc: &GfxTechniqueDesc) -> Self {
@@ -439,3 +487,11 @@ impl From<&GfxTechniqueDesc> for rush_gfx_technique_desc {
     }
 }
 */
+
+impl GfxSampler {
+    pub fn new(desc: &rush_gfx_sampler_desc) -> Self {
+        GfxSampler {
+            native: unsafe { rush_gfx_create_sampler_state(desc) }
+        }
+    }
+}

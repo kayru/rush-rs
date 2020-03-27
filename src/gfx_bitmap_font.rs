@@ -79,7 +79,7 @@ impl GfxBitmapFont {
     pub fn new_embedded(shadow: bool, (pad_x, pad_y): (u32, u32)) -> Self {
         let char_width = 6 + pad_x;
         let char_height = 8 + pad_y;
-        let char_count = '~' as u32 - ' ' as u32 + 1;
+        let char_count = b'~' as u32 - b' ' as u32 + 1;
         let glyph_border = if shadow { 1 } else { 0 };
         let glyph_width = char_width + glyph_border;
         let glyph_height = char_height + glyph_border;
@@ -97,7 +97,7 @@ impl GfxBitmapFont {
         pixels.resize((img_width * img_height) as usize, 0);
 
         for n in 0..char_count {
-            let c = n as u8 + ' ' as u8;
+            let c = n as u8 + b' ';
             let s: [char; 2] = [c as char, 0 as char];
 
             chars[c as usize] = CharData {

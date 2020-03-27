@@ -1,5 +1,3 @@
-#![allow(dead_code, unused_macros, unused_variables, unused_assignments)]
-
 extern crate rush_rs;
 use rush_rs::*;
 
@@ -21,7 +19,7 @@ impl HelloWindowApp {
             },
         }
     }
-    fn on_update(&mut self, platform: &mut Platform) {
+    fn on_update(&mut self, _platform: &mut Platform) {
         // todo: safe high level wrapper
         let count = unsafe { rush_window_event_listener_count(self.event_listener) as u32 };
         let mut events: Vec<rush_window_event> = Vec::with_capacity(count as usize);

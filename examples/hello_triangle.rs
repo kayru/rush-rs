@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 extern crate rush_rs;
 use rush_rs::*;
 
@@ -27,32 +25,25 @@ struct Constants {
 }
 
 impl Default for Constants {
-    fn default() ->Self{
+    fn default() -> Self {
         Constants {
+            #[rustfmt::skip]
             transform3d: [
                 1.0, 0.0, 0.0, 0.0,
                 0.0, 1.0, 0.0, 0.0,
                 0.0, 0.0, 1.0, 0.0,
                 0.0, 0.0, 0.0, 1.0,
             ],
-            transform2d: [
-                1.0, 1.0, 0.0, 0.0,
-            ],
-            color: [
-                1.0, 1.0, 1.0, 1.0,
-            ],
+            transform2d: [1.0, 1.0, 0.0, 0.0],
+            color: [1.0, 1.0, 1.0, 1.0],
         }
     }
 }
 
 impl HelloTriangleApp {
     fn new(_platform: &mut Platform) -> HelloTriangleApp {
-        let vs = GfxVertexShader::new_with_source(unsafe {
-            &rush_gfx_get_embedded_shader(RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_2D_VS)
-        });
-        let ps = GfxPixelShader::new_with_source(unsafe {
-            &rush_gfx_get_embedded_shader(RUSH_GFX_EMBEDDED_SHADER_PRIMITIVE_PLAIN_PS)
-        });
+        let vs = GfxVertexShader::new_embedded(GfxEmbeddedVertexShader::Primitive2D);
+        let ps = GfxPixelShader::new_embedded(GfxEmbeddedPixelShader::PrimitivePlain);
 
         let vf_desc = [
             rush_gfx_vertex_element {
@@ -75,7 +66,7 @@ impl HelloTriangleApp {
             },
         ];
 
-        let vf = unsafe { rush_gfx_create_vertex_format(vf_desc.as_ptr(), vf_desc.len() as u32) };
+        let vf = GfxVertexFormat::new(&vf_desc);
 
         let descriptor_sets = [rush_gfx_descriptor_set_desc {
             constant_buffers: 1,
@@ -85,7 +76,7 @@ impl HelloTriangleApp {
         let technique_desc = rush_gfx_technique_desc {
             vs: vs.native,
             ps: ps.native,
-            vf: vf,
+            vf: vf.native,
             bindings: rush_gfx_shader_bindings_desc {
                 descriptor_sets: descriptor_sets.as_ptr(),
                 descriptor_set_count: descriptor_sets.len() as u32,
@@ -112,26 +103,30 @@ impl HelloTriangleApp {
             },
         ];
 
-        let cb_data = [
-            Constants::default()
-        ];
+        let cb_data = [Constants::default()];
 
         HelloTriangleApp {
-            vb: GfxBuffer::new_with_data(&GfxBufferDesc {
-                flags: GfxBufferFlags::VERTEX,
-                format: GfxFormat::UNKNOWN,
-                stride: std::mem::size_of::<Vertex>() as u32,
-                count: vb_data.len() as u32,
-                host_visible: false,
-            }, vb_data.as_ptr()),
-            cb: GfxBuffer::new_with_data(&GfxBufferDesc {
-                flags: GfxBufferFlags::CONSTANT,
-                format: GfxFormat::UNKNOWN,
-                stride: std::mem::size_of::<Constants>() as u32,
-                count: 1,
-                host_visible: false,
-            }, cb_data.as_ptr()),
-            technique: GfxTechnique{ native: unsafe { rush_gfx_create_technique(&technique_desc) } },
+            vb: GfxBuffer::new_with_data(
+                &GfxBufferDesc {
+                    flags: GfxBufferFlags::VERTEX,
+                    format: GfxFormat::UNKNOWN,
+                    stride: std::mem::size_of::<Vertex>() as u32,
+                    count: vb_data.len() as u32,
+                    host_visible: false,
+                },
+                vb_data.as_ptr(),
+            ),
+            cb: GfxBuffer::new_with_data(
+                &GfxBufferDesc {
+                    flags: GfxBufferFlags::CONSTANT,
+                    format: GfxFormat::UNKNOWN,
+                    stride: std::mem::size_of::<Constants>() as u32,
+                    count: 1,
+                    host_visible: false,
+                },
+                cb_data.as_ptr(),
+            ),
+            technique: GfxTechnique::new(&technique_desc),
         }
     }
     fn on_update(&mut self, platform: &mut Platform) {
@@ -151,7 +146,7 @@ impl HelloTriangleApp {
         ctx.set_vertex_buffer(0, &self.vb);
         ctx.set_constant_buffer(0, &self.cb, 0);
         ctx.set_primitive_type(GfxPrimitiveType::TriangleList);
-        ctx.draw(0, 3);        
+        ctx.draw(0, 3);
         ctx.end_pass();
     }
 }

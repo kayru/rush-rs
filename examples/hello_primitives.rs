@@ -1,5 +1,3 @@
-#![allow(dead_code, unused_macros, unused_variables, unused_assignments)]
-
 extern crate rush_rs;
 use rush_rs::*;
 
