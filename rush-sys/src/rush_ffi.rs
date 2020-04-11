@@ -570,11 +570,11 @@ pub const RUSH_GFX_USAGE_TRANSFER_SRC: rush_gfx_usage_flags = 16;
 pub const RUSH_GFX_USAGE_TRANSFER_DST: rush_gfx_usage_flags = 32;
 pub type rush_gfx_usage_flags = i32;
 pub const RUSH_GFX_TEXTURE_TYPE_1D: rush_gfx_texture_type = 0;
-pub const RUSH_GFX_TEXTURE_TYPE_2D: rush_gfx_texture_type = 1;
-pub const RUSH_GFX_TEXTURE_TYPE_3D: rush_gfx_texture_type = 2;
-pub const RUSH_GFX_TEXTURE_TYPE_CUBE: rush_gfx_texture_type = 3;
-pub const RUSH_GFX_TEXTURE_TYPE_1D_ARRAY: rush_gfx_texture_type = 4;
-pub const RUSH_GFX_TEXTURE_TYPE_2D_ARRAY: rush_gfx_texture_type = 5;
+pub const RUSH_GFX_TEXTURE_TYPE_1D_ARRAY: rush_gfx_texture_type = 1;
+pub const RUSH_GFX_TEXTURE_TYPE_2D: rush_gfx_texture_type = 2;
+pub const RUSH_GFX_TEXTURE_TYPE_2D_ARRAY: rush_gfx_texture_type = 3;
+pub const RUSH_GFX_TEXTURE_TYPE_3D: rush_gfx_texture_type = 4;
+pub const RUSH_GFX_TEXTURE_TYPE_CUBE: rush_gfx_texture_type = 5;
 pub const RUSH_GFX_TEXTURE_TYPE_CUBE_ARRAY: rush_gfx_texture_type = 6;
 pub type rush_gfx_texture_type = i32;
 #[repr(C)]
