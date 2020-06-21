@@ -68,7 +68,7 @@ pub extern "C" fn on_startup(user_data: *mut c_void) {
 
 #[no_mangle]
 pub extern "C" fn on_update(user_data: *mut c_void) {
-    let app_box: &mut Box<dyn App> = unsafe { std::mem::transmute(user_data) };
+let app_box: &mut Box<dyn App> = unsafe { std::mem::transmute(user_data) };
     app_box.on_update(&mut Platform::new());
 }
 
@@ -78,6 +78,12 @@ pub extern "C" fn on_shutdown(user_data: *mut c_void) {
     app_box.on_shutdown(&mut Platform::new());
 }
 
+#[cfg(debug_assertions)]
+fn should_use_debug_layer() -> bool { true }
+
+#[cfg(not(debug_assertions))]
+fn should_use_debug_layer() -> bool { false }
+
 pub fn run(app: Box<dyn App>) -> i32 {
     let mut app_cfg = rush_app_config::new();
 
@@ -86,7 +92,7 @@ pub fn run(app: Box<dyn App>) -> i32 {
     app_cfg.on_startup = Some(on_startup);
     app_cfg.on_update = Some(on_update);
     app_cfg.on_shutdown = Some(on_shutdown);
-    //app_cfg.debug = true;
+    app_cfg.debug = should_use_debug_layer();
 
     let err_code = unsafe { rush_sys::rush_platform_main(&app_cfg) };
 
