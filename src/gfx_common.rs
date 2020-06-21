@@ -154,6 +154,14 @@ impl GfxPixelShader {
     }
 }
 
+impl GfxComputeShader {
+    pub fn new_with_source(source: &rush_gfx_shader_source) -> Self {
+        GfxComputeShader {
+            native: unsafe { rush_gfx_create_compute_shader(source) },
+        }
+    }
+}
+
 bitflags! {
     pub struct GfxUsageFlags: u32 {
         const NONE = 0 as u32;
@@ -445,7 +453,7 @@ impl From<&GfxBufferDesc> for rush_gfx_buffer_desc {
 }
 
 pub struct GfxTechniqueDesc {
-    //pub cs: rush_gfx_compute_shader,
+    pub cs: GfxComputeShader,
     pub ps: GfxPixelShader,
     //pub gs: rush_gfx_geometry_shader,
     pub vs: GfxVertexShader,

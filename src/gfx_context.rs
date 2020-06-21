@@ -74,6 +74,10 @@ impl GfxContext {
         unsafe { rush_gfx_set_sampler(self.native, slot, sampler.native()) };
     }
 
+    pub fn set_storate_image<H: GfxTextureHandle>(&mut self, index: u32, image: &H) {
+        unsafe { rush_gfx_set_storage_image(self.native, index, image.native()) };
+    }
+
     pub fn set_primitive_type(&mut self, primitive_type: GfxPrimitiveType) {
         unsafe { rush_gfx_set_primitive(self.native, primitive_type as rush_gfx_primitive_type) };
     }
@@ -98,5 +102,9 @@ impl GfxContext {
 
     pub fn draw(&mut self, first_vertex: u32, vertex_count: u32) {
         unsafe { rush_gfx_draw(self.native, first_vertex, vertex_count) };
+    }
+
+    pub fn dispatch(&mut self, size_x: u32, size_y: u32, size_z: u32) {
+        unsafe { rush_gfx_dispatch(self.native, size_x, size_y, size_z) };
     }
 }

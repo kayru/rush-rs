@@ -1,6 +1,6 @@
 [package]
 name = "rush-rs"
-version = "0.0.2-alpha.2"
+version = "0.0.2-alpha.3"
 repository = "https://github.com/kayru/rush-rs"
 authors = ["Yuriy O'Donnell <yuriyo@gmail.com>"]
 description = "High level bindings for librush graphics prototyping framework"
@@ -13,3 +13,4 @@ version = "0.0.2-alpha.3"
 
 [dependencies]
 bitflags = "1.2.1"
+shaderc = "0.6.2"
