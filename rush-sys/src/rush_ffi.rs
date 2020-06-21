@@ -479,6 +479,18 @@ pub const RUSH_GFX_FORMAT_BC6H_SFLOAT: rush_gfx_format = 29;
 pub const RUSH_GFX_FORMAT_BC7_UNORM: rush_gfx_format = 30;
 pub const RUSH_GFX_FORMAT_BC7_UNORM_SRGB: rush_gfx_format = 31;
 pub type rush_gfx_format = i32;
+pub const RUSH_GFX_RESOURCE_STATE_UNDEFINED: rush_gfx_resource_state = 0;
+pub const RUSH_GFX_RESOURCE_STATE_GENERAL: rush_gfx_resource_state = 1;
+pub const RUSH_GFX_RESOURCE_STATE_RENDER_TARGET: rush_gfx_resource_state = 2;
+pub const RUSH_GFX_RESOURCE_STATE_DEPTH_STENCIL_TARGET: rush_gfx_resource_state = 3;
+pub const RUSH_GFX_RESOURCE_STATE_DEPTH_STENCIL_TARGET_READ_ONLY: rush_gfx_resource_state = 4;
+pub const RUSH_GFX_RESOURCE_STATE_SHADER_READ: rush_gfx_resource_state = 5;
+pub const RUSH_GFX_RESOURCE_STATE_TRANSFER_SRC: rush_gfx_resource_state = 6;
+pub const RUSH_GFX_RESOURCE_STATE_TRANSFER_DST: rush_gfx_resource_state = 7;
+pub const RUSH_GFX_RESOURCE_STATE_PREINITIALIZED: rush_gfx_resource_state = 8;
+pub const RUSH_GFX_RESOURCE_STATE_PRESENT: rush_gfx_resource_state = 9;
+pub const RUSH_GFX_RESOURCE_STATE_SHARED_PRESENT: rush_gfx_resource_state = 10;
+pub type rush_gfx_resource_state = i32;
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, PartialEq)]
 pub struct rush_gfx_color_target {
@@ -569,6 +581,13 @@ pub const RUSH_GFX_USAGE_STORAGE_IMAGE: rush_gfx_usage_flags = 8;
 pub const RUSH_GFX_USAGE_TRANSFER_SRC: rush_gfx_usage_flags = 16;
 pub const RUSH_GFX_USAGE_TRANSFER_DST: rush_gfx_usage_flags = 32;
 pub type rush_gfx_usage_flags = i32;
+pub const RUSH_GFX_IMAGE_ASPECT_COLOR: rush_gfx_image_aspect_flags = 1;
+pub const RUSH_GFX_IMAGE_ASPECT_DEPTH: rush_gfx_image_aspect_flags = 2;
+pub const RUSH_GFX_IMAGE_ASPECT_STENCIL: rush_gfx_image_aspect_flags = 4;
+pub const RUSH_GFX_IMAGE_ASPECT_METADATA: rush_gfx_image_aspect_flags = 8;
+pub const RUSH_GFX_IMAGE_ASPECT_DEPTH_STENCIL: rush_gfx_image_aspect_flags = 6;
+pub const RUSH_GFX_IMAGE_ASPECT_ALL: rush_gfx_image_aspect_flags = 15;
+pub type rush_gfx_image_aspect_flags = i32;
 pub const RUSH_GFX_TEXTURE_TYPE_1D: rush_gfx_texture_type = 0;
 pub const RUSH_GFX_TEXTURE_TYPE_1D_ARRAY: rush_gfx_texture_type = 1;
 pub const RUSH_GFX_TEXTURE_TYPE_2D: rush_gfx_texture_type = 2;
@@ -779,6 +798,20 @@ impl Default for rush_gfx_sampler_desc {
         unsafe { ::std::mem::zeroed() }
     }
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_gfx_subresource_range {
+    pub aspect_mask: rush_gfx_image_aspect_flags,
+    pub base_mip_level: u32,
+    pub level_count: u32,
+    pub base_array_layer: u32,
+    pub layer_count: u32,
+}
+impl Default for rush_gfx_subresource_range {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
 extern "C" {
     pub fn rush_gfx_set_present_interval(interval: u32);
 }
@@ -984,6 +1017,21 @@ extern "C" {
         idx: u32,
         h: rush_gfx_buffer,
         offset: u32,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_add_image_barrier(
+        ctx: *mut rush_gfx_context,
+        texture: rush_gfx_texture,
+        desired_state: rush_gfx_resource_state,
+    );
+}
+extern "C" {
+    pub fn rush_gfx_add_image_subresource_barrier(
+        ctx: *mut rush_gfx_context,
+        texture: rush_gfx_texture,
+        desired_state: rush_gfx_resource_state,
+        subresource_range: rush_gfx_subresource_range,
     );
 }
 extern "C" {

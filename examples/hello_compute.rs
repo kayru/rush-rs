@@ -135,7 +135,7 @@ impl HelloComputeApp {
             time_start: Instant::now(),
         }
     }
-    
+
     fn on_update(&mut self, platform: &mut Platform) {
         let ctx = &mut platform.gfx_context;
 
@@ -155,6 +155,7 @@ impl HelloComputeApp {
         ctx.set_constant_buffer(0, &self.cb, 0);
         ctx.set_storate_image(0, &self.frame);
         ctx.dispatch(self.frame_size.0 / 8, self.frame_size.1 / 8, 1);
+        ctx.add_image_barrier(&self.frame, RUSH_GFX_RESOURCE_STATE_SHADER_READ);
 
         let pass_desc = GfxPassDesc {
             color: vec![GfxColorTarget {

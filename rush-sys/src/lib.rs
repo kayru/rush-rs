@@ -3,7 +3,8 @@
 #[macro_use]
 extern crate const_cstr;
 
-include!("rush_ffi.rs");
+pub mod rush_ffi;
+pub use rush_ffi::*;
 
 const_cstr! {
     DEFAULT_APP_NAME = "RushApp";

@@ -107,4 +107,12 @@ impl GfxContext {
     pub fn dispatch(&mut self, size_x: u32, size_y: u32, size_z: u32) {
         unsafe { rush_gfx_dispatch(self.native, size_x, size_y, size_z) };
     }
+
+    pub fn add_image_barrier<H: GfxTextureHandle>(
+        &mut self,
+        image: &H,
+        desired_state: rush_gfx_resource_state,
+    ) {
+        unsafe { rush_gfx_add_image_barrier(self.native, image.native(), desired_state) };
+    }
 }

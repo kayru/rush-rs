@@ -50,6 +50,7 @@ fn main() {
             .define("NOMINMAX", "1")
             .define("WIN32_LEAN_AND_MEAN", "1")
             .define("VK_USE_PLATFORM_WIN32_KHR", "1")
+            .define("VK_ENABLE_BETA_EXTENSIONS", "1")
             .file("vendor/Rush/PlatformWin32.cpp")
             .file("vendor/Rush/WindowWin32.cpp");
             println!("cargo:rustc-link-lib=user32");
@@ -59,6 +60,7 @@ fn main() {
             .define("RUSH_RENDER_API", "RUSH_RENDER_API_VK")
             .define("RUSH_PLATFORM_LINUX", "1")
             .define("VK_USE_PLATFORM_XCB_KHR", "1")
+            .define("VK_ENABLE_BETA_EXTENSIONS", "1")
             .file("vendor/Rush/PlatformLinux.cpp")
             .file("vendor/Rush/WindowXCB.cpp");
             println!("cargo:rustc-link-lib=xcb");
