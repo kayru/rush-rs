@@ -18,6 +18,8 @@ jobs:
     - uses: actions/checkout@v2
       with:
         submodules: true
+    - name: Install dependencies
+      run: sudo apt-get install libxcb-xkb-dev libxcb-keysyms1-dev libx11-dev -y
     - name: Build
       run: cargo build --verbose
     - name: Run tests
