@@ -1,17 +1,12 @@
 extern crate rush_rs;
 use rush_rs::*;
 
-struct HelloWorldApp {
-	counter : u32,
-}
-
-impl App for HelloWorldApp {
-	fn on_startup(&mut self, _platform: &mut Platform) {
-		println!("HelloWorldApp::startup()");
-	}
-	fn on_update(&mut self, platform: &mut Platform) {
-		let ctx = &mut platform.gfx_context;
-
+fn main() {
+	println!("HelloWorldApp::startup");
+	let mut app = AppContext::new();
+	let mut counter = 0;
+	AppContext::run(||{
+		let ctx = &mut app.gfx_context;
 		let pass_desc = GfxPassDesc {
 			color: vec![
 				GfxColorTarget{
@@ -21,23 +16,12 @@ impl App for HelloWorldApp {
 			flags: GfxPassFlags::CLEAR_COLOR_DEPTH_STENCIL,
 			..Default::default()
 		};
-
 		ctx.begin_pass(&pass_desc);
 		ctx.end_pass();
-
-		if self.counter % 25 == 0 {
-			println!("HelloWorldApp::update() {}", self.counter);
+		if counter % 25 == 0 {
+			println!("HelloWorldApp::update {}", counter);
 		}
-		self.counter += 1;
-	}
-	fn on_shutdown(&mut self, _platform: &mut Platform) {
-		println!("HelloWorldApp::shutdown()");
-	}
-}
-
-fn main() {
-	let app = Box::new(HelloWorldApp{
-		counter: 0
+		counter += 1;
 	});
-	rush_rs::run(app);
+	println!("HelloWorldApp::shutdown");
 }

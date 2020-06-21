@@ -14,12 +14,6 @@ pub struct rush_color_rgba {
     pub b: f32,
     pub a: f32,
 }
-pub type rush_platform_callback_startup =
-    ::std::option::Option<unsafe extern "C" fn(user_data: *mut ::std::os::raw::c_void)>;
-pub type rush_platform_callback_update =
-    ::std::option::Option<unsafe extern "C" fn(user_data: *mut ::std::os::raw::c_void)>;
-pub type rush_platform_callback_shutdown =
-    ::std::option::Option<unsafe extern "C" fn(user_data: *mut ::std::os::raw::c_void)>;
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct rush_app_config {
@@ -36,10 +30,6 @@ pub struct rush_app_config {
     pub minimize_latency: bool,
     pub argc: ::std::os::raw::c_int,
     pub argv: *mut *mut ::std::os::raw::c_char,
-    pub user_data: *mut ::std::os::raw::c_void,
-    pub on_startup: rush_platform_callback_startup,
-    pub on_update: rush_platform_callback_update,
-    pub on_shutdown: rush_platform_callback_shutdown,
 }
 impl Default for rush_app_config {
     fn default() -> Self {
@@ -49,8 +39,31 @@ impl Default for rush_app_config {
 extern "C" {
     pub fn rush_app_config_init(out_cfg: *mut rush_app_config);
 }
+#[repr(C)]
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub struct rush_platform_context {
+    pub window: *mut rush_window,
+    pub gfx_device: *mut rush_gfx_device,
+    pub gfx_context: *mut rush_gfx_context,
+}
+impl Default for rush_platform_context {
+    fn default() -> Self {
+        unsafe { ::std::mem::zeroed() }
+    }
+}
 extern "C" {
-    pub fn rush_platform_main(cfg: *const rush_app_config) -> ::std::os::raw::c_int;
+    pub fn rush_platform_startup(cfg: *const rush_app_config) -> *mut rush_platform_context;
+}
+pub type rush_platform_callback_update =
+    ::std::option::Option<unsafe extern "C" fn(user_data: *mut ::std::os::raw::c_void)>;
+extern "C" {
+    pub fn rush_platform_run(
+        on_update: rush_platform_callback_update,
+        user_data: *mut ::std::os::raw::c_void,
+    );
+}
+extern "C" {
+    pub fn rush_platform_shutdown();
 }
 pub const RUSH_KEY_UNKNOWN: rush_key = 0;
 pub const RUSH_KEY_SPACE: rush_key = 32;
@@ -230,11 +243,6 @@ impl Default for rush_window_event {
         unsafe { ::std::mem::zeroed() }
     }
 }
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct rush_window {
-    _unused: [u8; 0],
-}
 extern "C" {
     pub fn rush_platform_get_main_window() -> *mut rush_window;
 }
@@ -285,18 +293,8 @@ extern "C" {
 extern "C" {
     pub fn rush_window_event_listener_clear(listener: *mut rush_window_event_listener);
 }
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct rush_gfx_device {
-    _unused: [u8; 0],
-}
 extern "C" {
     pub fn rush_platform_get_device() -> *mut rush_gfx_device;
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct rush_gfx_context {
-    _unused: [u8; 0],
 }
 extern "C" {
     pub fn rush_platform_get_context() -> *mut rush_gfx_context;
@@ -1130,4 +1128,19 @@ extern "C" {
         color: u32,
         text: *const ::std::os::raw::c_char,
     );
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct rush_window {
+    pub _address: u8,
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct rush_gfx_device {
+    pub _address: u8,
+}
+#[repr(C)]
+#[derive(Debug, Default, Copy, Clone, PartialEq)]
+pub struct rush_gfx_context {
+    pub _address: u8,
 }

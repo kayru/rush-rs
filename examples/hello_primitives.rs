@@ -1,21 +1,13 @@
 extern crate rush_rs;
 use rush_rs::*;
 
-struct HelloPrimitivesApp {
-    prim: GfxPrimitiveBatch,
-    font: GfxBitmapFont,
-}
+fn main() {
+    let mut app = AppContext::new();
+    let mut prim = GfxPrimitiveBatch::new();
+    let font = GfxBitmapFont::new_embedded(false, (0, 0));
 
-impl HelloPrimitivesApp {
-    fn new(_platform: &mut Platform) -> HelloPrimitivesApp {
-        HelloPrimitivesApp {
-            prim: GfxPrimitiveBatch::new(),
-            font: GfxBitmapFont::new_embedded(false, (0,0))
-        }
-    }
-    fn on_update(&mut self, platform: &mut Platform) {
-        let ctx = &mut platform.gfx_context;
-        let prim = &mut self.prim;
+    AppContext::run(|| {
+        let ctx = &mut app.gfx_context;
 
         let pass_desc = GfxPassDesc {
             color: vec![GfxColorTarget {
@@ -96,7 +88,7 @@ impl HelloPrimitivesApp {
         {
             prim.begin_2d(window_size);
 
-            GfxBitmapFontRenderer::new(ctx, prim, &self.font)
+            GfxBitmapFontRenderer::new(ctx, &mut prim, &font)
                 .set_position((10.0, 10.0))
                 .set_color(ColorRGBA8::red())
                 .print("Hello rust world!\n")
@@ -111,28 +103,5 @@ impl HelloPrimitivesApp {
         }
 
         ctx.end_pass();
-    }
-}
-
-// todo: find a way to move the bootstrap into the core library
-struct BootstrapApp {
-    app: Option<HelloPrimitivesApp>,
-}
-
-impl App for BootstrapApp {
-    fn on_startup(&mut self, platform: &mut Platform) {
-        self.app = Some(HelloPrimitivesApp::new(platform));
-    }
-    fn on_update(&mut self, platform: &mut Platform) {
-        let app: &mut HelloPrimitivesApp = self.app.as_mut().unwrap();
-        app.on_update(platform);
-    }
-    fn on_shutdown(&mut self, _platform: &mut Platform) {
-        self.app = None;
-    }
-}
-
-fn main() {
-    let app = Box::new(BootstrapApp { app: None });
-    rush_rs::run(app);
+    });
 }

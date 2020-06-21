@@ -42,59 +42,56 @@ macro_rules! splat4 {
     }};
 }
 
-pub struct Platform {
+#[cfg(debug_assertions)]
+fn should_use_debug_layer() -> bool {
+    true
+}
+
+#[cfg(not(debug_assertions))]
+fn should_use_debug_layer() -> bool {
+    false
+}
+
+pub struct AppContext {
+    pub cfg: rush_app_config,
     pub gfx_context: GfxContext,
 }
 
-impl Platform {
-    pub fn new() -> Platform {
-        Platform {
+extern "C" fn ffi_closure<F>(closure: *mut c_void)
+where
+    F: FnMut(),
+{
+    let opt_closure = closure as *mut Option<F>;
+    unsafe {
+        (*opt_closure).as_mut().unwrap()();
+    }
+}
+
+impl AppContext {
+    pub fn new() -> Self {
+        let mut app_cfg = rush_app_config::new();
+        app_cfg.debug = should_use_debug_layer();
+        unsafe {
+            rush_sys::rush_platform_startup(&app_cfg);
+        }
+        AppContext {
+            cfg: app_cfg,
             gfx_context: GfxContext::new(unsafe { rush_platform_get_context() }),
+        }
+    }
+    pub fn run<F>(frame_fn: F)
+    where
+        F: FnMut(),
+    {
+        unsafe {
+            let user_data = &frame_fn as *const _ as *mut c_void;
+            rush_platform_run(Some(ffi_closure::<F>), user_data);
         }
     }
 }
 
-pub trait App {
-    fn on_startup(&mut self, _platform: &mut Platform) {}
-    fn on_update(&mut self, _platform: &mut Platform) {}
-    fn on_shutdown(&mut self, _platform: &mut Platform) {}
-}
-
-#[no_mangle]
-pub extern "C" fn on_startup(user_data: *mut c_void) {
-    let app_box: &mut Box<dyn App> = unsafe { std::mem::transmute(user_data) };
-    app_box.on_startup(&mut Platform::new());
-}
-
-#[no_mangle]
-pub extern "C" fn on_update(user_data: *mut c_void) {
-let app_box: &mut Box<dyn App> = unsafe { std::mem::transmute(user_data) };
-    app_box.on_update(&mut Platform::new());
-}
-
-#[no_mangle]
-pub extern "C" fn on_shutdown(user_data: *mut c_void) {
-    let app_box: &mut Box<dyn App> = unsafe { std::mem::transmute(user_data) };
-    app_box.on_shutdown(&mut Platform::new());
-}
-
-#[cfg(debug_assertions)]
-fn should_use_debug_layer() -> bool { true }
-
-#[cfg(not(debug_assertions))]
-fn should_use_debug_layer() -> bool { false }
-
-pub fn run(app: Box<dyn App>) -> i32 {
-    let mut app_cfg = rush_app_config::new();
-
-    let user_data_box: Box<Box<dyn App>> = Box::new(app);
-    app_cfg.user_data = Box::into_raw(user_data_box) as *mut _;
-    app_cfg.on_startup = Some(on_startup);
-    app_cfg.on_update = Some(on_update);
-    app_cfg.on_shutdown = Some(on_shutdown);
-    app_cfg.debug = should_use_debug_layer();
-
-    let err_code = unsafe { rush_sys::rush_platform_main(&app_cfg) };
-
-    err_code
+impl Drop for AppContext {
+    fn drop(&mut self) {
+        unsafe { rush_sys::rush_platform_shutdown() };
+    }
 }

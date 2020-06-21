@@ -16,7 +16,7 @@ fn main() {
     .file("vendor/Rush/GfxEmbeddedShadersMSL.cpp")
     .file("vendor/Rush/GfxPrimitiveBatch.cpp")
     .file("vendor/Rush/MathTypes.cpp")
-    //.file("vendor/Rush/Platform.cpp")
+    .file("vendor/Rush/Platform.cpp")
     .file("vendor/Rush/UtilCamera.cpp")
     .file("vendor/Rush/UtilFile.cpp")
     .file("vendor/Rush/UtilLog.cpp")
